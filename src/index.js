@@ -114,13 +114,13 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
   }
 });
 
-bot.onText(/\/f (.+) in (.+)/, (msg, match) => {
-  const chatId = helper.getChatId(msg);
-  const text = match[1];
-  const time = match[2];
-
-  return bot.sendMessage(chatId, `1: ${text}, 2: ${time}`)
-});
+// bot.onText(/\/f (.+) in (.+)/, (msg, match) => {
+//   const chatId = helper.getChatId(msg);
+//   const text = match[1];
+//   const time = match[2];
+//
+//   return bot.sendMessage(chatId, `1: ${text}, 2: ${time}`)
+// });
 
 bot.on('message', msg => {
 
@@ -661,6 +661,9 @@ function findByQuery(user, query) {
                   {text: `➖`, callback_data: 'delete'},
                   {text: '🛍️', callback_data: 'cart'},
                   {text: `➕`, callback_data: `add`}
+                ],
+                [
+                  {text: 'Подробнее', callback_data: `/f${flower.uid}`}
                 ]
               ]
             }
