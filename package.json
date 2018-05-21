@@ -1,0 +1,25 @@
+{
+  "name": "flower-shop-telegram-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "set_env": "export $(cat .env | xargs)"
+  },
+  "author": "Egor Kravchenko",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.1.1",
+    "node-telegram-bot-api": "^0.30.0",
+    "npm": "^5.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
+}
