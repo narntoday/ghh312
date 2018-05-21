@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose');
-const Schema = mongoose.Schema;
 require('./model/user.model');
 const User = mongoose.model('users');
 require('./model/flower.model');
@@ -32,15 +31,6 @@ module.exports = {
 
   html(query) {
     return `Новый заказ!\n<b>Имя:</b> ${query.name}\n<b>Адрес:</b> ${query.address}\n<b>Телефон:</b> ${query.phone}`
-  },
-
-  addLog(user, cb) {
-      dbmsg = new User({
-          name: user.name,
-          id: user.id,
-          timestamp: new Date().toISOString(),
-          cart: {}
-      }).save(cb);
   },
 
   addToCart(item, user) {
@@ -101,13 +91,5 @@ module.exports = {
       result += p;
     });
     return result;
-  },
-
-  getInlineColors(el) {
-    return [{text: el.color, callback_data: el.callback_color}];
-  },
-
-  getInlinePrices(el) {
-    return [{text: `${el.callback_price} ₽`, callback_data: el.callback_price}];
   }
 };

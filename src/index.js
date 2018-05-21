@@ -410,11 +410,9 @@ bot.on('callback_query', msg => {
 });
 
 function findFlower(query, userId) {
-  const rub = '₽';
-
   Flower.findOne(query).then(f => {
     const caption = `<b>${f.title}</b> - /f${f.uid}\n<b>Цена ${f.price} ${rub}</b>\n${f.descr}`;
-    bot.sendPhoto(userId, f.image, {
+    return bot.sendPhoto(userId, f.image, {
       caption: caption,
       parse_mode: 'HTML',
       reply_markup: {
@@ -427,7 +425,7 @@ function findFlower(query, userId) {
         ]
       }
     })
-  });
+  }).catch(err => console.log(err));
 }
 
 function showCart(user) {
@@ -479,7 +477,7 @@ function choosePrice(msg) {
 }
 
 function showReasons(id) {
-  bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
+  return bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
     reply_markup: {
       inline_keyboard: [
         [{text: kb.reasons.birthday, callback_data: 'birthday'}],
