@@ -410,13 +410,14 @@ bot.on('callback_query', msg => {
 
     if (msg.data.startsWith('/f')) {
         console.log(msg.data)
+        findFlower(msg.data.slice(3), id)
     }
   }).catch(err => console.log(err));
 });
 
 function findFlower(query, userId) {
-  Flower.findOne(query).then(f => {
-    const caption = `<b>${f.title}</b> - /f${f.uid}\n<b>Цена ${f.price} ${rub}</b>\n${f.descr}`;
+  Flower.findOne({uid: query}).then(f => {
+    const caption = `<b>${f.title}</b> - /f${f.uid}\n<b>Цена ${f.price} ${rub}</b>\n${f.description}`;
     return bot.sendPhoto(userId, f.image, {
       caption: caption,
       parse_mode: 'HTML',
