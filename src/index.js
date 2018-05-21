@@ -15,8 +15,9 @@ const globals = require('./globals');
 
 // Start server
 const app = new Koa();
+const router = Router()
 
-Router().post('/bot', ctx => {
+router.post('/bot', ctx => {
   const { body } = ctx.request;
   bot.processUpdate(body);
   ctx.status = 200
@@ -27,7 +28,7 @@ setInterval(function() {
 }, 600000);
 
 app.use(Bodyparser());
-app.use(Router().routes());
+app.use(router.routes());
 app.listen(`${process.env.PORT || 5000}`, () => {
   console.log(`Server is listening on ${process.env.PORT}`)
 });
