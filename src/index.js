@@ -409,8 +409,8 @@ bot.on('callback_query', msg => {
       }
 
     if (msg.data.startsWith('/f')) {
-        console.log(msg.data)
-        findFlower(msg.data.slice(3), id)
+        console.log(msg.data.slice(3))
+        findFlower(msg.data.slice(2), id)
     }
   }).catch(err => console.log(err));
 });
