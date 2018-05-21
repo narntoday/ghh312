@@ -13,21 +13,21 @@ const keyboard = require ('./keyboard');
 const kb = require ('./keyboard-buttons');
 const globals = require('./globals');
 
-//==== CONNECT ====
+// Start server
 const app = new Koa();
-const router = Router();
 
-router.post('/bot', ctx => {
+Router().post('/bot', ctx => {
   const { body } = ctx.request;
   bot.processUpdate(body);
   ctx.status = 200
 });
 
 setInterval(function() {
-  router.get("http://enigmatic-sands-71189.herokuapp.com");
+  app.get("http://enigmatic-sands-71189.herokuapp.com");
 }, 600000);
+
 app.use(Bodyparser());
-app.use(router.routes());
+app.use(Router().routes());
 app.listen(`${process.env.PORT || 5000}`, () => {
   console.log(`Server is listening on ${process.env.PORT}`)
 });
@@ -406,6 +406,10 @@ bot.on('callback_query', msg => {
           order(msg.message.chat.id);
           break;
       }
+
+    if (msg.data.startsWith('/f')) {
+        console.log(msg.data)
+    }
   }).catch(err => console.log(err));
 });
 
