@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const env = require('dotenv').config();
+require('dotenv').config();
 const Koa = require('koa');
 const Router = require('koa-router');
 const Bodyparser = require('koa-bodyparser');
@@ -22,6 +22,10 @@ router.post('/bot', ctx => {
   bot.processUpdate(body);
   ctx.status = 200
 });
+
+setInterval(function() {
+  router.get("http://enigmatic-sands-71189.herokuapp.com");
+}, 600000);
 app.use(Bodyparser());
 app.use(router.routes());
 app.listen(`${process.env.PORT || 5000}`, () => {
@@ -35,11 +39,11 @@ mongoose.connect(`${process.env.PROD_MONGODB}`, mongooseOptions)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
-require('./model/form.model');
-const Form = mongoose.model('form');
+require('./model/order.model');
+const Form = mongoose.model('orders');
 
 require('./model/user.model');
-const User = mongoose.model('flower-bot_users');
+const User = mongoose.model('users');
 
 require('./model/flower.model');
 const Flower = mongoose.model('flowers');

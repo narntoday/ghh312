@@ -9,4 +9,4 @@ const FormSchema = new Schema({
   phone: String
 });
 
-mongoose.model('form', FormSchema);
+mongoose.model('orders', FormSchema);

@@ -32,4 +32,4 @@ const UserSchema = new Schema({
   cart: [cartSchema]
 });
 
-mongoose.model('flower-bot_users', UserSchema);
+mongoose.model('users', UserSchema);
