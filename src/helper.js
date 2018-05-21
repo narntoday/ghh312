@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 require('./model/user.model');
-const User = mongoose.model('flower-bot_users');
+const User = mongoose.model('users');
 require('./model/flower.model');
 const Flower = mongoose.model('flowers');
 
