@@ -14,7 +14,7 @@ module.exports = {
         await user.cart.slice(1).forEach(c => {
           if ( c.uid === item ) {
             let count = c.quantity;
-            user.cart._id(c._id).set({quantity: count + 1});
+            user.cart.id(c._id).set({quantity: count + 1});
             user.save();
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
