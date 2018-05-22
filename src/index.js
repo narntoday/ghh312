@@ -377,7 +377,6 @@ bot.on('callback_query', msg => {
     } else if (msg.data.startsWith('add')) {
       // add to cart
       const item = msg.data.slice(6);
-      console.log(item)
       bot.answerCallbackQuery({
         callback_query_id: msg.id,
         text: `Добавлено в корзину`

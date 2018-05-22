@@ -10,11 +10,9 @@ module.exports = {
         user.cart.push({uid: item, price: flower.price, quantity: 1});
         await user.save();
       } else if (user.cart.length > 1) {
-        await user.cart.slice(1).forEach(c => {
-          console.log('C = ', c)
-          if ( c.uid === item ) {
-            console.log(user.cart)
-            //let count = c.quantity;
+        user.cart.slice(1).forEach(c => {
+          if (item === c.uid) {
+            console.log(user.cart.id(c._id))
             user.cart.id(c._id).set({quantity: c.quantity += 1});
             user.save();
           } else {
