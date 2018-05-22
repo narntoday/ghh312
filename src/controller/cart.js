@@ -21,12 +21,12 @@ module.exports = {
           };
         });
 
-        console.log(found)
+        console.log('found', found)
 
         if (!found.success) {
           cart.push({uid: item, price: flower.price, quantity: 1})
         } else {
-          console.log(found.foundId)
+          console.log('foundId', found.foundId)
         }
 
 
