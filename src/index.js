@@ -333,17 +333,6 @@ bot.on('callback_query', msg => {
             .catch(err => console.log(err));
           break;
 
-        // add to cart
-        case (msg.data.startsWith('add')):
-          const item = msg.data.slice(5);
-          console.log(item)
-          bot.answerCallbackQuery({
-            callback_query_id: msg.id,
-            text: `Добавлено в корзину`
-          }).then(() => cartController.addToCart(item))
-            .catch((err) => console.log(err));
-          break;
-
         // remove from cart
         case 'delete':
           bot.answerCallbackQuery({
@@ -385,6 +374,15 @@ bot.on('callback_query', msg => {
 
     if (msg.data.startsWith('/f')) {
       queryController.findFlower(msg.data.slice(2), id)
+    } else if (msg.data.startsWith('add')) {
+      // add to cart
+      const item = msg.data.slice(5);
+      console.log(item)
+      bot.answerCallbackQuery({
+        callback_query_id: msg.id,
+        text: `Добавлено в корзину`
+      }).then(() => cartController.addToCart(item))
+        .catch((err) => console.log(err));
     }
   }).catch(err => console.log(err));
 });
