@@ -336,11 +336,7 @@ bot.on('callback_query', msg => {
 
         // remove from cart
         case 'delete':
-          bot.answerCallbackQuery({
-            callback_query_id: msg.id,
-            text: 'Удалено из корзины'
-          }).then(() => CartController.removeFromCart(msg.message.caption, msg.message.chat.id))
-            .catch((err) => console.log(err));
+
           break;
 
         // show cart
@@ -371,10 +367,13 @@ bot.on('callback_query', msg => {
           break;
       }
 
+    // send item details
     if (msg.data.startsWith('/f')) {
       QueryController.findFlower(msg.data.slice(2), id)
-    } else if (msg.data.startsWith('add')) {
-      // add to cart
+    }
+
+    // add item to cart
+    else if (msg.data.startsWith('add')) {
       const item = msg.data.slice(6);
       bot.answerCallbackQuery({
         callback_query_id: msg.id,
@@ -382,5 +381,15 @@ bot.on('callback_query', msg => {
       }).then(() => CartController.addToCart(item, user))
         .catch((err) => console.log(err));
     }
+
+    // remove item from cart
+    else if (msg.data.startsWith('delete')) {
+      bot.answerCallbackQuery({
+        callback_query_id: msg.id,
+        text: 'Удалено из корзины'
+      }).then(() => CartController.removeFromCart(item, user))
+        .catch((err) => console.log(err));
+    }
+
   }).catch(err => console.log(err));
 });
