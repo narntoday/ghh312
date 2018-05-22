@@ -47,11 +47,11 @@ module.exports = bot = new TelegramBot(process.env.TOKEN);
 bot.setWebHook(`${process.env.HEROKU_URL}bot`);
 
 // Bot logic
-const mainController = require('./controller/main');
-const queryController = require('./controller/query');
-const pageController = require('./controller/page');
-const orderController = require('./controller/order');
-const cartController = require('./controller/cart');
+const MainController = require('./controller/main');
+const QueryController = require('./controller/query');
+const PageController = require('./controller/page');
+const OrderController = require('./controller/order');
+const CartController = require('./controller/cart');
 
 bot.onText(/^\/[a-zA-Z]+$/, msg => {
   const id = helper.getChatId(msg);
@@ -87,25 +87,25 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
       break;
     case '/cart':
       User.findOne({userId: id})
-        .then(user => cartController.showCart(user))
+        .then(user => CartController.showCart(user))
         .catch(err => console.log(err));
       break;
     case '/contacts':
       return bot.sendMessage(id, helper.contacts);
     case '/bouquets':
-      mainController.sendCallback(msg, 'bouquets');
+      MainController.sendCallback(msg, 'bouquets');
       break;
     case '/compose':
-      mainController.sendCallback(msg, 'compose');
+      MainController.sendCallback(msg, 'compose');
       break;
     case '/gifts':
-      mainController.sendCallback(msg, 'gifts');
+      MainController.sendCallback(msg, 'gifts');
       break;
     case '/reasons':
-      mainController.showReasons(id);
+      MainController.showReasons(id);
       break;
     case '/prices':
-      mainController.choosePriceForAll(msg);
+      MainController.choosePriceForAll(msg);
       break
   }
 });
@@ -129,18 +129,18 @@ bot.on('message', msg => {
 
     switch(msg.text) {
       case kb.home.bouqets:
-        mainController.sendCallback(msg, 'bouquets');
+        MainController.sendCallback(msg, 'bouquets');
         break;
       case kb.home.compose:
-        mainController.sendCallback(msg, 'compose');
+        MainController.sendCallback(msg, 'compose');
         break;
       case kb.home.gifts:
-        mainController.sendCallback(msg, 'gifts');
+        MainController.sendCallback(msg, 'gifts');
         break;
       case kb.home.contacts:
         return bot.sendMessage(id, helper.contacts);
       case kb.home.cart:
-        cartController.showCart(user);
+        CartController.showCart(user);
         break
     }
   }).catch(err => console.log(err));
@@ -154,7 +154,7 @@ bot.on('callback_query', msg => {
         // bouquets
         case 'b_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => mainController.showReasons(id))
+            .then(() => MainController.showReasons(id))
             .catch(err => console.log(err));
           break;
 
@@ -181,7 +181,7 @@ bot.on('callback_query', msg => {
           bot.answerCallbackQuery({
             callback_query_id: msg.id,
             text: `Показаны все ${itemText}`
-          }).then(() => queryController.findByQuery(user, showItem))
+          }).then(() => QueryController.findByQuery(user, showItem))
             .catch(err => console.log(err));
           break;
 
@@ -189,21 +189,21 @@ bot.on('callback_query', msg => {
         case 'more bouquets':
         case 'more compose':
         case 'more gifts':
-          pageController.changePage(user, msg.data.slice(5), 'add');
+          PageController.changePage(user, msg.data.slice(5), 'add');
           break;
 
         // go to previous page
         case 'less bouquets':
         case 'less compose':
         case 'less gifts':
-          pageController.changePage(user, msg.data.slice(5), 'remove');
+          PageController.changePage(user, msg.data.slice(5), 'remove');
           break;
 
         //reset page
         case 'start bouquets':
         case 'start compose':
         case 'start gifts':
-          pageController.changePage(user, msg.data.slice(6), 'reset');
+          PageController.changePage(user, msg.data.slice(6), 'reset');
           break;
 
         // choose price
@@ -211,7 +211,7 @@ bot.on('callback_query', msg => {
         case 'c_price':
         case 'g_price':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => mainController.choosePrice(msg))
+            .then(() => MainController.choosePrice(msg))
             .catch(err => console.log(err));
           break;
 
@@ -245,7 +245,7 @@ bot.on('callback_query', msg => {
           user.save()
             .then(() => {
               bot.answerCallbackQuery({callback_query_id: msg.id})
-                .then(() => queryController.findByPrice(user, query, msg.data))
+                .then(() => QueryController.findByPrice(user, query, msg.data))
                 .catch((err) => console.log(err))
             }).catch((err) => console.log(err));
           break;
@@ -256,7 +256,7 @@ bot.on('callback_query', msg => {
         case 'morePrice b_midhigh':
         case 'morePrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'bouquets', 'add', msg.data))
+            .then(() => PageController.changePagePrice(user, 'bouquets', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -265,7 +265,7 @@ bot.on('callback_query', msg => {
         case 'morePrice c_midhigh':
         case 'morePrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'compose', 'add', msg.data))
+            .then(() => PageController.changePagePrice(user, 'compose', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -274,7 +274,7 @@ bot.on('callback_query', msg => {
         case 'morePrice g_midhigh':
         case 'morePrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'gifts', 'add', msg.data))
+            .then(() => PageController.changePagePrice(user, 'gifts', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -284,7 +284,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice b_midhigh':
         case 'lessPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'bouquets', 'remove', msg.data))
+            .then(() => PageController.changePagePrice(user, 'bouquets', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -293,7 +293,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice с_midhigh':
         case 'lessPrice с_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'compose', 'remove', msg.data))
+            .then(() => PageController.changePagePrice(user, 'compose', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -302,7 +302,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice g_midhigh':
         case 'lessPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'gifts', 'remove', msg.data))
+            .then(() => PageController.changePagePrice(user, 'gifts', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -311,7 +311,7 @@ bot.on('callback_query', msg => {
         case 'startPrice b_midhigh':
         case 'startPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'bouquets', 'reset', msg.data))
+            .then(() => PageController.changePagePrice(user, 'bouquets', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -320,7 +320,7 @@ bot.on('callback_query', msg => {
         case 'startPrice c_midhigh':
         case 'startPrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'compose', 'reset', msg.data))
+            .then(() => PageController.changePagePrice(user, 'compose', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -329,7 +329,7 @@ bot.on('callback_query', msg => {
         case 'startPrice g_midhigh':
         case 'startPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => pageController.changePagePrice(user, 'gifts', 'reset', msg.data))
+            .then(() => PageController.changePagePrice(user, 'gifts', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -345,7 +345,7 @@ bot.on('callback_query', msg => {
         // show cart
         case 'cart':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => cartController.showCart(user))
+            .then(() => CartController.showCart(user))
             .catch((err) => console.log(err));
           break;
 
@@ -354,33 +354,31 @@ bot.on('callback_query', msg => {
           bot.answerCallbackQuery({
             callback_query_id: msg.id,
             text: 'Корзина очищена!'
-          }).then(() => {
-            user.cart = {};
-            user.save()
-          }).catch((err) => console.log(err));
+          }).then(() => CartController.clearCart(user))
+            .catch((err) => console.log(err));
           break;
 
         case 'birthday':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => mainController.choosePrice(msg))
+            .then(() => MainController.choosePrice(msg))
             .catch((err) => console.log(err));
           break;
 
         // process the order
         case 'order':
-          orderController(msg.message.chat.id);
+          OrderController(msg.message.chat.id);
           break;
       }
 
     if (msg.data.startsWith('/f')) {
-      queryController.findFlower(msg.data.slice(2), id)
+      QueryController.findFlower(msg.data.slice(2), id)
     } else if (msg.data.startsWith('add')) {
       // add to cart
       const item = msg.data.slice(6);
       bot.answerCallbackQuery({
         callback_query_id: msg.id,
         text: `Добавлено в корзину`
-      }).then(() => cartController.addToCart(item, user))
+      }).then(() => CartController.addToCart(item, user))
         .catch((err) => console.log(err));
     }
   }).catch(err => console.log(err));

@@ -63,5 +63,9 @@ module.exports = {
     } else {
       return bot.sendMessage(user.userId, `Корзина пуста`);
     }
+  },
+  clearCart (user) {
+    user.cart = {};
+    user.save()
   }
 };
