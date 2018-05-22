@@ -9,12 +9,13 @@ module.exports = {
       if (user.cart.length === 1) {
         user.cart.push({uid: item, price: flower.price, quantity: 1});
         await user.save();
-        console.log(user)
       } else if (user.cart.length > 1) {
         await user.cart.slice(1).forEach(c => {
+          console.log('C = ', c)
           if ( c.uid === item ) {
-            let count = c.quantity;
-            user.cart.id(c._id).set({quantity: count + 1});
+            console.log(user.cart)
+            //let count = c.quantity;
+            user.cart.id(c._id).set({quantity: c.quantity += 1});
             user.save();
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
@@ -22,6 +23,8 @@ module.exports = {
           }
         })
       }
+
+      console.log(user)
     } catch (error) {
       console.log(error)
     }
