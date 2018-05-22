@@ -1,6 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
-const http = require('http');
+const https = require('https');
 const Koa = require('koa');
 const Router = require('koa-router');
 const Bodyparser = require('koa-bodyparser');
@@ -23,7 +23,7 @@ router.post('/bot', ctx => {
   ctx.status = 200
 });
 
-setInterval(() => http.get("http://enigmatic-sands-71189.herokuapp.com"), 600000);
+setInterval(() => https.get(process.env.HEROKU_URL), 6000);
 
 app.use(Bodyparser());
 app.use(router.routes());
@@ -108,7 +108,6 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
       break
   }
 });
-
 bot.on('message', msg => {
 
   const id = helper.getChatId(msg);
@@ -145,7 +144,6 @@ bot.on('message', msg => {
     }
   }).catch(err => console.log(err));
 });
-
 bot.on('callback_query', msg => {
   const id = msg.message.chat.id;
 

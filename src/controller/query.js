@@ -8,7 +8,7 @@ module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
       const description = f.description.split(',').join('\n');
-      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n<em>Описание:</em>${description}`;
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n<em>Описание:</em>\n${description}`;
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
@@ -113,7 +113,7 @@ module.exports = {
       case 'b_high':
       case 'c_high':
       case 'g_high':
-        count = await Flower.count({category: query}).where('price').gt(2000);
+        count = await Flower.count({category: query}).where('price').gt(5000);
         break;
     }
 
@@ -141,7 +141,7 @@ module.exports = {
         case 'b_high':
         case 'c_high':
         case 'g_high':
-          result = await Flower.find({category: query}).where('price').gt(2000).limit(limit).skip(limit*(page-1));
+          result = await Flower.find({category: query}).where('price').gt(5000).limit(limit).skip(limit*(page-1));
           break;
       }
     } else {
