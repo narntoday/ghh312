@@ -11,6 +11,7 @@ module.exports = {
       if (user.cart.length === 1) {
         await user.cart.push({
           uid: item,
+          title: flower.title,
           image: flower.image,
           price: flower.price
         });
@@ -20,6 +21,7 @@ module.exports = {
         if (!found) {
           user.cart.push({
             uid: item,
+            title: flower.title,
             image: flower.image,
             price: flower.price
           });
@@ -53,50 +55,51 @@ module.exports = {
   },
   showCart (user) {
     if (user.cart.length > 1) {
-      bot.sendMessage(user.userId, `Ваш заказ`).then(() => {
-        // you should return every promise in promise.all
-        Promise.all(user.cart.slice(1).map(function (item) {
-          Flower.findOne({uid: item.uid})
-            .then(flower => {
-              return bot.sendPhoto(user.userId, flower.image, {
-                caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
-                parse_mode: 'HTML',
-                reply_markup: {
-                  inline_keyboard: [
-                    [
-                      {text: `➖`, callback_data: `delete /f${flower.uid}`},
-                      {text: '🛒️', callback_data: 'cart'},
-                      {text: `➕`, callback_data: `add /f${flower.uid}`}
-                    ],
-                    [
-                      {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
-                    ]
+      bot.sendMessage(user.userId, `Ваш заказ`)
+        .then(() => {
+          // you should return every promise in promise.all
+          Promise.all(user.cart.slice(1).map(flower => {
+            return bot.sendPhoto(user.userId, flower.image, {
+              caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
+              parse_mode: 'HTML',
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    {text: `➖`, callback_data: `delete /f${flower.uid}`},
+                    {text: '🛒️', callback_data: 'cart'},
+                    {text: `➕`, callback_data: `add /f${flower.uid}`}
+                  ],
+                  [
+                    {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
                   ]
-                }
-              })
+                ]
+              }
+            })
+          })).then(() => {
+            const price = this.getTotalPrice(user);
+            return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
+              parse_mode: 'HTML',
+              reply_markup: {
+                inline_keyboard: [
+                  [{text: `🗑️ Очистить корзину`, callback_data: 'clear'}],
+                  [{text: `🌸 Оформить заказ`, callback_data: 'order'}]
+                ]
+              }
+            })
           }).catch(err => console.log(err))
-        })).then(() => {
-          const price = this.getTotalPrice(user);
-          console.log(price)
-          return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
-            parse_mode: 'HTML',
-            reply_markup: {
-              inline_keyboard: [
-                [{text: `🗑️ Очистить корзину`, callback_data: 'clear'}],
-                [{text: `🌸 Оформить заказ`, callback_data: 'order'}]
-              ]
-            }
-          })
         }).catch(err => console.log(err))
-      }).catch(err => console.log(err))
     } else {
       return bot.sendMessage(user.userId, `Корзина пуста`);
     }
   },
   getTotalPrice (user) {
-    const total = user.cart.slice(1).reduce((a, b) => a + b)
-    console.log('total', total)
-    return total
+    const prices = user.cart.slice(1).map(item => item.price)
+
+
+
+      // .reduce((a, b) => a + b)
+    console.log('total', prices)
+    return prices
   },
   clearCart (user) {
     user.cart = {};

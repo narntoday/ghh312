@@ -18,6 +18,8 @@ const pagesSchema = new Schema({
 
 const cartSchema = new Schema({
   uid: String,
+  title: String,
+  image: String,
   price: Number,
   quantity: {
     type: Number,
