@@ -50,16 +50,17 @@ module.exports = {
   });
 },
   choosePrice(msg) {
-  let item = msg.data.substr(0,1);
-  return bot.sendMessage(msg.message.chat.id, `Пожалуйста, уточните стоимость`, {
-    reply_markup: {
-      inline_keyboard: [
-        [{text: `до 2000 ${rub}`, callback_data: `${item}_low`}],
-        [{text: `от 2000 ${rub} до 3500 ${rub}`, callback_data: `${item}_midlow`}],
-        [{text: `от 3500 ${rub} до 5000 ${rub}`, callback_data: `${item}_midhigh`}],
-        [{text: `от 5000 ${rub}`, callback_data: `${item}_high`}]
-      ]
-    }
-  })
-}
+    console.log(msg)
+    let item = msg.data.substr(0,1);
+    return bot.sendMessage(msg.message.chat.id, `Пожалуйста, уточните стоимость`, {
+      reply_markup: {
+        inline_keyboard: [
+          [{text: `до 2000 ${rub}`, callback_data: `${item}_low`}],
+          [{text: `от 2000 ${rub} до 3500 ${rub}`, callback_data: `${item}_midlow`}],
+          [{text: `от 3500 ${rub} до 5000 ${rub}`, callback_data: `${item}_midhigh`}],
+          [{text: `от 5000 ${rub}`, callback_data: `${item}_high`}]
+        ]
+      }
+    })
+  }
 };
