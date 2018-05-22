@@ -64,14 +64,7 @@ module.exports = {
               parse_mode: 'HTML',
               reply_markup: {
                 inline_keyboard: [
-                  [
-                    {text: `➖`, callback_data: `delete /f${flower.uid}`},
-                    {text: '🛒️', callback_data: 'cart'},
-                    {text: `➕`, callback_data: `add /f${flower.uid}`}
-                  ],
-                  [
-                    {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
-                  ]
+                  [{text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}]
                 ]
               }
             })
