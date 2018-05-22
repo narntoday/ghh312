@@ -12,17 +12,19 @@ module.exports = {
       } else if (user.cart.length > 1) {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
-            console.log(user.cart.id(c._id))
-            user.cart.id(c._id).set({quantity: c.quantity += 1});
-            user.save();
+            user.update({_id: c._id}, {quantity: c.quantity += 1})
+              .then(() => user.save())
+              .catch(err => console.log(err));
+            console.log(user.cart)
+            // console.log(user.cart.id(c._id))
+            // user.cart.id(c._id).set({quantity: c.quantity += 1});
+            //user.save();
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
             user.save();
           }
         })
       }
-
-      console.log(user)
     } catch (error) {
       console.log(error)
     }
