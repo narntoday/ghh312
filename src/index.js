@@ -48,6 +48,7 @@ bot.setWebHook(`${process.env.HEROKU_URL}bot`);
 // Bot logic
 const mainController = require('./controller/main');
 const queryController = require('./controller/query');
+const pageController = require('./controller/page');
 const orderController = require('./controller/order');
 const cartController = require('./controller/cart');
 
@@ -202,21 +203,21 @@ bot.on('callback_query', msg => {
         case 'more bouquets':
         case 'more compose':
         case 'more gifts':
-          queryController.changePage(user, msg.data.slice(5), 'add');
+          pageController.findByPrice(user, msg.data.slice(5), 'add');
           break;
 
         // go to previous page
         case 'less bouquets':
         case 'less compose':
         case 'less gifts':
-          queryController.changePage(user, msg.data.slice(5), 'remove');
+          pageController.findByPrice(user, msg.data.slice(5), 'remove');
           break;
 
         //reset page
         case 'start bouquets':
         case 'start compose':
         case 'start gifts':
-          queryController.changePage(user, msg.data.slice(6), 'reset');
+          pageController.findByPrice(user, msg.data.slice(6), 'reset');
           break;
 
         // choose price
@@ -269,7 +270,7 @@ bot.on('callback_query', msg => {
         case 'morePrice b_midhigh':
         case 'morePrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'bouquets', 'add', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'bouquets', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -277,7 +278,7 @@ bot.on('callback_query', msg => {
         case 'morePrice c_midlow':        case 'morePrice c_midhigh':
         case 'morePrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'compose', 'add', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'compose', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -286,7 +287,7 @@ bot.on('callback_query', msg => {
         case 'morePrice g_midhigh':
         case 'morePrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'gifts', 'add', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'gifts', 'add', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -296,7 +297,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice b_midhigh':
         case 'lessPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'bouquets', 'remove', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'bouquets', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -305,7 +306,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice с_midhigh':
         case 'lessPrice с_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'compose', 'remove', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'compose', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -314,7 +315,7 @@ bot.on('callback_query', msg => {
         case 'lessPrice g_midhigh':
         case 'lessPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'gifts', 'remove', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'gifts', 'remove', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -323,7 +324,7 @@ bot.on('callback_query', msg => {
         case 'startPrice b_midhigh':
         case 'startPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'bouquets', 'reset', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'bouquets', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -332,7 +333,7 @@ bot.on('callback_query', msg => {
         case 'startPrice c_midhigh':
         case 'startPrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'compose', 'reset', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'compose', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 
@@ -341,7 +342,7 @@ bot.on('callback_query', msg => {
         case 'startPrice g_midhigh':
         case 'startPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => queryController.changePagePrice(user, 'gifts', 'reset', msg.data))
+            .then(() => pageController.findByPricePrice(user, 'gifts', 'reset', msg.data))
             .catch(err => console.log(err));
           break;
 

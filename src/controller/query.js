@@ -7,7 +7,8 @@ const limit = globals.limit;
 module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
-      const caption = `<b>${f.title}</b> - /f${f.uid}\n<b>Цена ${f.price} ${rub}</b>\n${f.description}`;
+      const description = f.description.split(',').join('\n');
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n<em>Описание:</em>${description}`;
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
@@ -89,23 +90,6 @@ module.exports = {
       }
     }).catch(err => console.log(err))
   },
-  changePage(user, query, action) {
-    let pageNumber = user.pages[query],
-        params = {};
-
-    if (action === 'reset') {
-      user.pages[query] = 1;
-      user.save()
-        .then(() => findByQuery(user, query))
-        .catch(err => console.log(err))
-    } else {
-      params[query] = action === 'add' ? (pageNumber + 1) : (pageNumber - 1);
-      user.pages.set(params);
-      user.save()
-        .then(() => findByQuery(user, query))
-        .catch(err => console.log(err))
-    }
-  },
   async findByPrice (user, query, cb_data) {
     let count, result,
         page = user.pagesPrice[query];
@@ -174,7 +158,7 @@ module.exports = {
     const pageTotal = Math.ceil(count/limit);
     const promises = result.map(flower => {
       return bot.sendPhoto(user.userId, flower.image, {
-        caption: `<b>${flower.title}</b> - /f${flower.uid}\n<b>Цена ${flower.price} ${rub}</b>`,
+        caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
         parse_mode: 'HTML',
         reply_markup: {
           inline_keyboard: [
@@ -182,6 +166,9 @@ module.exports = {
               {text: `➖`, callback_data: 'delete'},
               {text: '🛍️', callback_data: 'cart'},
               {text: `➕`, callback_data: `add`}
+            ],
+            [
+              {text: '🗒 Подробнее', callback_data: `/f${flower.uid}`}
             ]
           ]
         }
@@ -212,23 +199,5 @@ module.exports = {
           }
         })
     }).catch(err => console.log(err))
-  },
-  changePagePrice(user, query, action, cb_data) {
-    let pageNumber = user.pagesPrice[query],
-        params = {};
-
-    if (action === 'reset') {
-      user.pagesPrice[query] = 1;
-      user.save()
-
-        .then(() => findByPrice(user, query, cb_data.slice(11)))
-        .catch((err) => console.log(err))
-    } else {
-      params[query] = action === 'add' ? (pageNumber + 1) : (pageNumber - 1);
-      user.pagesPrice.set(params);
-      user.save()
-        .then(() => findByPrice(user, query, cb_data.slice(10)))
-        .catch((err) => console.log(err))
-    }
   }
 };

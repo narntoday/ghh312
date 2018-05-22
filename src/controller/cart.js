@@ -1,6 +1,5 @@
 const bot = require('../index');
 const helper = require('../helper');
-const kb = require ('../keyboard-buttons');
 
 module.exports = function (user) {
   if (user.cart.length > 1) {
