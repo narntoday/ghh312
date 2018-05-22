@@ -6,7 +6,6 @@ module.exports = {
   async addToCart (item, user) {
     try {
       const flower = await Flower.findOne({uid: item});
-      console.log(flower)
       if (user.cart.length === 1) {
         user.cart.push({uid: item, price: flower.price, quantity: 1});
         await user.save();
@@ -15,14 +14,13 @@ module.exports = {
         await user.cart.slice(1).forEach(c => {
           if ( c.uid === item ) {
             let count = c.quantity;
-            user.cart.id(c._id).set({quantity: count + 1});
+            user.cart._id(c._id).set({quantity: count + 1});
             user.save();
           } else {
-            user.cart.push({uid: item, price: c.price, quantity: 1});
+            user.cart.push({uid: item, price: flower.price, quantity: 1});
             user.save();
           }
         })
-        console.log(user)
       }
     } catch (error) {
       console.log(error)
