@@ -334,11 +334,6 @@ bot.on('callback_query', msg => {
             .catch(err => console.log(err));
           break;
 
-        // remove from cart
-        case 'delete':
-
-          break;
-
         // show cart
         case 'cart':
           bot.answerCallbackQuery({callback_query_id: msg.id})
@@ -384,6 +379,7 @@ bot.on('callback_query', msg => {
 
     // remove item from cart
     else if (msg.data.startsWith('delete')) {
+      const item = msg.data.slice(9);
       bot.answerCallbackQuery({
         callback_query_id: msg.id,
         text: 'Удалено из корзины'

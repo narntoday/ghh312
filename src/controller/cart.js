@@ -78,6 +78,9 @@ module.exports = {
       return bot.sendMessage(user.userId, `Корзина пуста`);
     }
   },
+  getTotalPrice () {
+
+  },
   clearCart (user) {
     user.cart = {};
     user.save()
