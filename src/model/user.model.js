@@ -17,9 +17,16 @@ const pagesSchema = new Schema({
 });
 
 const cartSchema = new Schema({
-  uid: String,
+  uid: {
+    type: String,
+    required: true
+  },
+  image: String,
   price: Number,
-  quantity: Number
+  quantity: {
+    type: Number,
+    default: 1
+  }
 });
 
 const UserSchema = new Schema({

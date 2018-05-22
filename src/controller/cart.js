@@ -12,8 +12,7 @@ module.exports = {
         await user.cart.push({
           uid: item,
           image: flower.image,
-          price: flower.price,
-          quantity: 1
+          price: flower.price
         });
         user.save();
       } else if (user.cart.length > 1) {
@@ -22,8 +21,7 @@ module.exports = {
           user.cart.push({
             uid: item,
             image: flower.image,
-            price: flower.price,
-            quantity: 1
+            price: flower.price
           });
           user.save()
         } else {
@@ -59,24 +57,25 @@ module.exports = {
         // you should return every promise in promise.all
         Promise.all(user.cart.slice(1).map(function (flower) {
           console.log(flower)
-          // return bot.sendPhoto(user.userId, flower.image, {
-          //   caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
-          //   parse_mode: 'HTML',
-          //   reply_markup: {
-          //     inline_keyboard: [
-          //       [
-          //         {text: `➖`, callback_data: `delete /f${flower.uid}`},
-          //         {text: '🛒️', callback_data: 'cart'},
-          //         {text: `➕`, callback_data: `add /f${flower.uid}`}
-          //       ],
-          //       [
-          //         {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
-          //       ]
-          //     ]
-          //   }
-          // })
+          return bot.sendPhoto(user.userId, flower.image, {
+            caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
+            parse_mode: 'HTML',
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {text: `➖`, callback_data: `delete /f${flower.uid}`},
+                  {text: '🛒️', callback_data: 'cart'},
+                  {text: `➕`, callback_data: `add /f${flower.uid}`}
+                ],
+                [
+                  {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
+                ]
+              ]
+            }
+          })
         })).then(() => {
           const price = this.getTotalPrice(user);
+          console.log(price)
           return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
             parse_mode: 'HTML',
             reply_markup: {
