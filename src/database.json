@@ -1921,16 +1921,6 @@
       "description": "Герберы - 3, Ирисы - 5, Альстромерии - 5, Роза белая 50см - 3, Корзина (средн.), Оазис, Рускус, Гипсофила, Статица"
     },
     {
-      "uid": "1547",
-      "category": "compose",
-      "title": "Композиция \"Мэрилин Монро\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1547.png",
-      "price": "4 600",
-      "reason": "jubilee",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1547/merilin-monro",
-      "description": "Роза белая 50см - 13, Роза кустовая 50см - 12, Рускус, Оазис, Корзина (средн.)"
-    },
-    {
       "uid": "1532",
       "category": "compose",
       "title": "Композиция \"Соцветие\"",
@@ -1981,16 +1971,6 @@
       "description": "Роза красная 50см - 15, Лилии - 3, Оазис, Рускус, Корзина (средн.)"
     },
     {
-      "uid": "1732",
-      "category": "compose",
-      "title": "Композиция \"Теплый вечер\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1732.png",
-      "price": "2 840",
-      "reason": "birthday",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1732/teplyi-vecher",
-      "description": "Альстромерии - 5, Подсолнух, Салал, Оазис, Корзина (средн.)"
-    },
-    {
       "uid": "1624",
       "category": "compose",
       "title": "Композиция \"Цветочное сердце\"",
@@ -1999,36 +1979,6 @@
       "reason": "birthday",
       "link": "https://ekaterinburg.rus-buket.ru/compositions/1624/tsvetochnoe-serdtse",
       "description": "Роза красная 50см - 27, Герберы - 1, Лизиантус - 1, Рускус, Форма сердца оазис (40x40см)"
-    },
-    {
-      "uid": "1549",
-      "category": "compose",
-      "title": "Композиция \"Царский нектар\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1549.png",
-      "price": "7 330",
-      "reason": "wedding",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1549/tsarskii-nektar",
-      "description": "Роза красная 50см - 7, Герберы - 3, Хризантема кустовая - 5, Гиперикум - 2, Хризантема филин Грин, Фисташка, Рускус, Напиток хорошего настроения 2500, Корзина (больш.), Оазис"
-    },
-    {
-      "uid": "1305",
-      "category": "compose",
-      "title": "Композиция \"Вечная память\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1305.png",
-      "price": "3 270",
-      "reason": "love",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1305/vechnaya-pamyat",
-      "description": "Гвоздика, Рускус, Фатсия, Оазис, Корзина (больш.)"
-    },
-    {
-      "uid": "1250",
-      "category": "compose",
-      "title": "Композиция \"Цветочный коктейль\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1250.png",
-      "price": "3 390",
-      "reason": "jubilee",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1250/tsvetochnyi-kokteil",
-      "description": "Кустовая роза Дэвида Остина (пионовидная) - 3, Лизиантус - 3, хризантема кустовая грин лизард - 2, Эвкалипт парвифолия, Рускус, Ваза, Оазис, Сизаль, Аспарагус сетакус, Плошка для композиций"
     },
     {
       "uid": "1547",
@@ -2041,46 +1991,6 @@
       "description": "Роза белая 50см - 13, Роза кустовая 50см - 12, Рускус, Оазис, Корзина (средн.)"
     },
     {
-      "uid": "1532",
-      "category": "compose",
-      "title": "Композиция \"Соцветие\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1532.png",
-      "price": "2 980",
-      "reason": "birthday",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1532/sotsvetie",
-      "description": "Роза разноцветная 50см - 15, Рускус, Фисташка, Оазис, Корзина (средн.)"
-    },
-    {
-      "uid": "1529",
-      "category": "compose",
-      "title": "Композиция \"Жар-птица\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1529.png",
-      "price": "2 980",
-      "reason": "jubilee",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1529/zhar-ptitsa",
-      "description": "Роза красная 50см - 15, Рускус, Фисташка, Оазис, Корзина (средн.)"
-    },
-    {
-      "uid": "1530",
-      "category": "compose",
-      "title": "Композиция \"Версаль\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1530.png",
-      "price": "6 680",
-      "reason": "love",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1530/versal",
-      "description": "Орхидея цимбидиум - 3, Роза белая 50см - 5, Роза кустовая 50см - 12, Лизиантус - 1, Гиперикум - 5, Статица, Хризантема филин Грин, Рускус, Фисташка, Оазис, Корзина (больш.)"
-    },
-    {
-      "uid": "329",
-      "category": "compose",
-      "title": "Композиция \"Драгоценной\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-329.png",
-      "price": "4 180",
-      "reason": "love",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/329/dragotsennoi",
-      "description": "Роза красная 50см - 15, Лилии - 3, Оазис, Рускус, Корзина (средн.)"
-    },
-    {
       "uid": "1732",
       "category": "compose",
       "title": "Композиция \"Теплый вечер\"",
@@ -2089,16 +1999,6 @@
       "reason": "wedding",
       "link": "https://ekaterinburg.rus-buket.ru/compositions/1732/teplyi-vecher",
       "description": "Альстромерии - 5, Подсолнух, Салал, Оазис, Корзина (средн.)"
-    },
-    {
-      "uid": "1624",
-      "category": "compose",
-      "title": "Композиция \"Цветочное сердце\"",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1624.png",
-      "price": "4 210",
-      "reason": "birthday",
-      "link": "https://ekaterinburg.rus-buket.ru/compositions/1624/tsvetochnoe-serdtse",
-      "description": "Роза красная 50см - 27, Герберы - 1, Лизиантус - 1, Рускус, Форма сердца оазис (40x40см)"
     },
     {
       "uid": "1549",
@@ -2131,6 +2031,22 @@
       "description": "Кустовая роза Дэвида Остина (пионовидная) - 3, Лизиантус - 3, хризантема кустовая грин лизард - 2, Эвкалипт парвифолия, Рускус, Ваза, Оазис, Сизаль, Аспарагус сетакус, Плошка для композиций"
     },
     {
+      "uid": "1565",
+      "category": "gifts",
+      "title": "Подарок для мужчины",
+      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1565.png",
+      "price": "2 400",
+      "link": "https://ekaterinburg.rus-buket.ru/podarki/1565/podarok-dlya-muzhchiny"
+    },
+    {
+      "uid": "1300",
+      "category": "gifts",
+      "title": "Корзина детская",
+      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1300.png",
+      "price": "1 920",
+      "link": "https://ekaterinburg.rus-buket.ru/podarki/1300/korzina-detskaya"
+    },
+    {
       "uid": "1568",
       "category": "gifts",
       "title": "Чайная корзина",
@@ -2145,14 +2061,6 @@
       "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1605.png",
       "price": "1 360",
       "link": "https://ekaterinburg.rus-buket.ru/podarki/1605/ferrero-300g"
-    },
-    {
-      "uid": "1565",
-      "category": "gifts",
-      "title": "Подарок для мужчины",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1565.png",
-      "price": "2 400",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1565/podarok-dlya-muzhchiny"
     },
     {
       "uid": "1309",
@@ -2185,78 +2093,6 @@
       "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1514.png",
       "price": "2 260",
       "link": "https://ekaterinburg.rus-buket.ru/podarki/1514/amerikanskie-sladosti"
-    },
-    {
-      "uid": "1300",
-      "category": "gifts",
-      "title": "Корзина детская",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1300.png",
-      "price": "1 920",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1300/korzina-detskaya"
-    },
-    {
-      "uid": "1568",
-      "category": "gifts",
-      "title": "Чайная корзина",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1568.png",
-      "price": "2 290",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1568/chainaya-korzina"
-    },
-    {
-      "uid": "1605",
-      "category": "gifts",
-      "title": "Ферреро 300г",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1605.png",
-      "price": "1 360",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1605/ferrero-300g"
-    },
-    {
-      "uid": "1565",
-      "category": "gifts",
-      "title": "Подарок для мужчины",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1565.png",
-      "price": "2 400",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1565/podarok-dlya-muzhchiny"
-    },
-    {
-      "uid": "1309",
-      "category": "gifts",
-      "title": "Корзина Киндер",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1309.png",
-      "price": "1 870",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1309/korzina-kinder"
-    },
-    {
-      "uid": "1322",
-      "category": "gifts",
-      "title": "Открытка ручной работы для него",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1322.png",
-      "price": "320",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1322/otkrytka-ruchnoi-raboty-dlya-nego"
-    },
-    {
-      "uid": "1296",
-      "category": "gifts",
-      "title": "Будь здоров!",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1296.png",
-      "price": "2 270",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1296/bud-zdorov"
-    },
-    {
-      "uid": "1514",
-      "category": "gifts",
-      "title": "Американские сладости",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1514.png",
-      "price": "2 260",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1514/amerikanskie-sladosti"
-    },
-    {
-      "uid": "1300",
-      "category": "gifts",
-      "title": "Корзина детская",
-      "image": "https://ekaterinburg.rus-buket.ru/files/icons/icon-1300.png",
-      "price": "1 920",
-      "link": "https://ekaterinburg.rus-buket.ru/podarki/1300/korzina-detskaya"
     },
     {
       "uid": "625",
