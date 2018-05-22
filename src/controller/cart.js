@@ -23,18 +23,15 @@ module.exports = {
         if (!found) {
           cart.push({uid: item, price: flower.price, quantity: 1});
           user.save()
-            .then(u => console.log('user', u))
+            .then(u => console.log('user before save', u))
             .catch(err => console.log(err))
         } else {
           const sub = user.cart.find(obj => obj.uid === flower.uid);
           console.log('sub', sub,)
-          const number = user.cart.id(sub._id)
-          console.log('number', number)
-          //user.cart.id(sub._id).set({quantity: number})
-          // user.cart.id(flower._id).set({quantity: sub.quantity += 1});
-          // user.save()
-          //   .then(u => console.log(u))
-          //   .catch(err => console.log(err))
+          user.cart.id(sub._id).set({quantity: sub.quantity + 1});
+          user.save()
+            .then(u => console.log('user after save', u))
+            .catch(err => console.log(err))
         }
 
 
