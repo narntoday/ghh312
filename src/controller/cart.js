@@ -55,24 +55,26 @@ module.exports = {
     if (user.cart.length > 1) {
       bot.sendMessage(user.userId, `Ваш заказ`).then(() => {
         // you should return every promise in promise.all
-        Promise.all(user.cart.slice(1).map(function (flower) {
-          console.log(flower)
-          return bot.sendPhoto(user.userId, flower.image, {
-            caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
-            parse_mode: 'HTML',
-            reply_markup: {
-              inline_keyboard: [
-                [
-                  {text: `➖`, callback_data: `delete /f${flower.uid}`},
-                  {text: '🛒️', callback_data: 'cart'},
-                  {text: `➕`, callback_data: `add /f${flower.uid}`}
-                ],
-                [
-                  {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
-                ]
-              ]
-            }
-          })
+        Promise.all(user.cart.slice(1).map(function (item) {
+          Flower.findOne({uid: item.uid})
+            .then(flower => {
+              return bot.sendPhoto(user.userId, flower.image, {
+                caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
+                parse_mode: 'HTML',
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {text: `➖`, callback_data: `delete /f${flower.uid}`},
+                      {text: '🛒️', callback_data: 'cart'},
+                      {text: `➕`, callback_data: `add /f${flower.uid}`}
+                    ],
+                    [
+                      {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
+                    ]
+                  ]
+                }
+              })
+          }).catch(err => console.log(err))
         })).then(() => {
           const price = this.getTotalPrice(user);
           console.log(price)
@@ -92,7 +94,9 @@ module.exports = {
     }
   },
   getTotalPrice (user) {
-    return user.cart.slice(1).reduce((a, b) => a + b)
+    const total = user.cart.slice(1).reduce((a, b) => a + b)
+    console.log('total', total)
+    return total
   },
   clearCart (user) {
     user.cart = {};

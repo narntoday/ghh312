@@ -1,9 +1,3 @@
-const mongoose = require ('mongoose');
-require('./model/user.model');
-const User = mongoose.model('users');
-require('./model/flower.model');
-const Flower = mongoose.model('flowers');
-
 module.exports = {
   contacts: `Разработчик бота - @kravchenko_egor`,
   description: `Здравствуйте! Этот бот любезно поможет Вам выбрать цветы в нашем магазине, а затем оформить доставку в любую точку города.\n
@@ -26,17 +20,5 @@ module.exports = {
   },
   html(query) {
     return `Новый заказ!\n<b>Имя:</b> ${query.name}\n<b>Адрес:</b> ${query.address}\n<b>Телефон:</b> ${query.phone}`
-  },
-  getTotalPrice(arr) {
-    var price = [];
-    var result = 0;
-    arr.forEach(item => {
-      price.push((parseInt(item.price, 10))*item.quantity);
-      return price;
-    });
-    price.forEach(p => {
-      result += p;
-    });
-    return result;
   }
 };
