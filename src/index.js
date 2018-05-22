@@ -376,7 +376,7 @@ bot.on('callback_query', msg => {
       queryController.findFlower(msg.data.slice(2), id)
     } else if (msg.data.startsWith('add')) {
       // add to cart
-      const item = msg.data.slice(5);
+      const item = msg.data.slice(6);
       console.log(item)
       bot.answerCallbackQuery({
         callback_query_id: msg.id,

@@ -6,6 +6,7 @@ module.exports = {
   async addToCart (item, user) {
     try {
       const flower = await Flower.findOne({uid: item});
+      console.log(flower)
       if (user.cart.length === 1) {
         user.cart.push({uid: item, price: flower.price, quantity: 1});
         await user.save();
