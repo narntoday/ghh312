@@ -93,13 +93,8 @@ module.exports = {
     }
   },
   getTotalPrice (user) {
-    const prices = user.cart.slice(1).map(item => item.price)
-
-
-
-      // .reduce((a, b) => a + b)
-    console.log('total', prices)
-    return prices
+    const prices = user.cart.slice(1).map(item => item.price);
+    return prices.reduce((a, b) => a + b)
   },
   clearCart (user) {
     user.cart = {};
