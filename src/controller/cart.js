@@ -8,21 +8,18 @@ module.exports = {
     try {
       const flower = await Flower.findOne({uid: item});
       if (user.cart.length === 1) {
-        user.cart.push({uid: item, price: flower.price, quantity: 1});
-        await user.save();
+        await user.cart.push({uid: item, price: flower.price, quantity: 1});
+        user.save();
       } else if (user.cart.length > 1) {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
             User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
               .then(() => user.save())
               .catch(err => console.log(err));
-            console.log(user.cart)
+          } else {
+            user.cart.push({uid: item, price: flower.price, quantity: 1});
+            user.save();
           }
-
-          // else {
-          //   user.cart.push({uid: item, price: flower.price, quantity: 1});
-          //   user.save();
-          // }
         })
       }
     } catch (error) {
