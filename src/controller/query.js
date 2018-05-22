@@ -17,7 +17,7 @@ module.exports = {
             [
               {text: `➖`, callback_data: 'delete'},
               {text: '🛒', callback_data: 'cart'},
-              {text: `➕`, callback_data: `add`}
+              {text: `➕`, callback_data: `add /f${f.uid}`}
             ]
           ]
         }
@@ -42,7 +42,7 @@ module.exports = {
                   [
                     {text: `➖`, callback_data: 'delete'},
                     {text: '🛒️', callback_data: 'cart'},
-                    {text: `➕`, callback_data: `add`}
+                    {text: `➕`, callback_data: `add /f${flower.uid}`}
                   ],
                   [
                     {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
@@ -165,7 +165,7 @@ module.exports = {
             [
               {text: `➖`, callback_data: 'delete'},
               {text: '🛒️', callback_data: 'cart'},
-              {text: `➕`, callback_data: `add`}
+              {text: `➕`, callback_data: `add /f${flower.uid}`}
             ],
             [
               {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
