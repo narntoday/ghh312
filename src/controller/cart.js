@@ -1,5 +1,6 @@
 const bot = require('../index');
 const helper = require('../helper');
+const User = require('../model/user.model');
 const Flower = require('../model/flower.model');
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
       } else if (user.cart.length > 1) {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
-            user.findOneAndUpdate(c._id, {quantity: c.quantity += 1}, {upsert: true})
+            User.findOneAndUpdate(c._id, {quantity: c.quantity += 1}, {upsert: true})
               .then(() => user.save())
               .catch(err => console.log(err));
             console.log(user.cart)
