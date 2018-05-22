@@ -15,18 +15,20 @@ module.exports = {
         user.save();
       } else if (cart.length > 1) {
         const found = cart.slice(1).some(el => {
-          return {
-            success: el.uid === item,
-            foundId: el._id
-          };
+          return el.uid === item
         });
 
-        console.log('found', found.success)
+        console.log('found', found)
 
-        if (!found.success) {
+        if (!found) {
           cart.push({uid: item, price: flower.price, quantity: 1})
         } else {
-          console.log('foundId', found.foundId)
+          const sub = cart.id(flower._id);
+          console.log('THIS = ', this)
+          user.cart.id(flower._id).set({quantity: sub.quantity += 1});
+          user.save()
+            .then(u => console.log(u))
+            .catch(err => console.log(err))
         }
 
 
