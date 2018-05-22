@@ -34,22 +34,25 @@ module.exports = {
 
     return bot.sendMessage(id, text, { reply_markup: keyboard });
   },
-  showReasons (id) {
-  return bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {text: kb.reasons.birthday, callback_data: 'birthday'},
-          {text: kb.reasons.jubilee, callback_data: 'jubilee'}
-        ],
-        [
-          {text: kb.reasons.wedding, callback_data: 'wedding'},
-          {text: kb.reasons.love, callback_data: 'love'}
+  showReasons (id, query) {
+    let item, keyboard;
 
-        ]
+    item = query === 'bouquet' ? 'b' : 'c';
+    keyboard = [
+      [
+        {text: kb.reasons.birthday, callback_data: `${item}_birthday`},
+        {text: kb.reasons.jubilee, callback_data: `${item}_jubilee`}
+      ],
+      [
+        {text: kb.reasons.wedding, callback_data: `${item}_wedding`},
+        {text: kb.reasons.love, callback_data: `${item}_love`}
+
       ]
-    }
-  });
+    ]
+
+    return bot.sendMessage(id, `Выберите повод, на который хотите подарить ${item === 'b' ? 'букет' : 'композицию'}:`, {
+      reply_markup: { inline_keyboard: keyboard }
+    });
 },
   choosePrice (msg) {
     let item = msg.data.substr(0,1);

@@ -199,5 +199,10 @@ module.exports = {
           }
         })
     }).catch(err => console.log(err))
+  },
+  findByReason (user, query, cb_data) {
+    switch (cb_data) {
+
+    }
   }
 };

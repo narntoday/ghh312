@@ -152,13 +152,6 @@ bot.on('callback_query', msg => {
   User.findOne({userId: id})
     .then(user => {
       switch (msg.data) {
-        // bouquets
-        case 'b_reasons':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => MainController.showReasons(id))
-            .catch(err => console.log(err));
-          break;
-
         //show all items
         case 'b_all':
         case 'c_all':
@@ -350,10 +343,41 @@ bot.on('callback_query', msg => {
             .catch((err) => console.log(err));
           break;
 
-        case 'birthday':
+        // show items by reasons
+        case 'b_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => MainController.choosePrice(msg))
+              .then(() => MainController.showReasons(id, 'bouquet'))
+              .catch(err => console.log(err));
+          break;
+        case 'с_reasons':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => MainController.showReasons(id, 'compose'))
+              .catch(err => console.log(err));
+          break;
+
+        case 'b_birthday':
+        case 'c_birthday':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+            .then(() => QueryController.findByReason(id, 'birthday', msg.data))
             .catch((err) => console.log(err));
+          break;
+        case 'b_jubilee':
+        case 'c_jubilee':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => QueryController.findByReason(id, 'jubilee', msg.data))
+              .catch((err) => console.log(err));
+          break;
+        case 'b_wedding':
+        case 'c_wedding':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => QueryController.findByReason(id, 'wedding', msg.data))
+              .catch((err) => console.log(err));
+          break;
+        case 'b_love':
+        case 'c_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => QueryController.findByReason(id, 'love', msg.data))
+              .catch((err) => console.log(err));
           break;
 
         // process the order
