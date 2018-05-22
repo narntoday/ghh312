@@ -25,7 +25,13 @@ module.exports = {
             //       .catch(err => console.log(err))
             //   }).catch(err => console.log(err));
           } else {
-            user.cart.push({uid: item, price: flower.price, quantity: 1});
+            console.log(user.cart.slice(1));
+            let obj = {
+              uid: item,
+              price: flower.price,
+              quantity: 1
+            };
+            user.cart.push(obj);
             user.save()
               .then(u => console.log(u))
               .catch(err => console.log(err))
