@@ -9,12 +9,22 @@ module.exports = {
     try {
       const flower = await Flower.findOne({uid: item});
       if (user.cart.length === 1) {
-        await user.cart.push({uid: item, price: flower.price, quantity: 1});
+        await user.cart.push({
+          uid: item,
+          image: flower.image,
+          price: flower.price,
+          quantity: 1
+        });
         user.save();
       } else if (user.cart.length > 1) {
         const found = user.cart.slice(1).some(el => el.uid === item);
         if (!found) {
-          user.cart.push({uid: item, price: flower.price, quantity: 1});
+          user.cart.push({
+            uid: item,
+            image: flower.image,
+            price: flower.price,
+            quantity: 1
+          });
           user.save()
         } else {
           const subDoc = user.cart.find(el => el.uid === item);
