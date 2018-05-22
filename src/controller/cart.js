@@ -13,13 +13,13 @@ module.exports = {
         await user.cart.push({uid: item, price: flower.price, quantity: 1});
         user.save();
       } else if (user.cart.length > 1) {
-        function itemIsPresent(newItem) {
-          user.cart.forEach(c => {
-            if (newItem === c.uid) {
+        const itemIsPresent = function(newItem) {
+          for (let i = 0; i < user.cart.slice(1).length; i++) {
+            if (newItem === i.uid) {
               return true
             }
-          })
-        }
+          }
+        };
         console.log(itemIsPresent(item))
 
 
