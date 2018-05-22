@@ -4,7 +4,6 @@ module.exports = {
   home: [
     [kb.home.bouqets],
     [kb.home.compose, kb.home.gifts],
-    [kb.home.contacts],
     [kb.home.cart]
   ],
   cart: [
