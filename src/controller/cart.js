@@ -15,12 +15,15 @@ module.exports = {
       } else if (user.cart.length > 1) {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
-            User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
-              .then(() => {
-                user.save()
-                  .then(u => console.log(u))
-                  .catch(err => console.log(err))
-              }).catch(err => console.log(err));
+            const sub = user.cart.id(_id)
+            console.log('c._id = ', 'sub =', sub)
+            //user.set()
+            // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
+            //   .then(() => {
+            //     user.save()
+            //       .then(u => console.log(u))
+            //       .catch(err => console.log(err))
+            //   }).catch(err => console.log(err));
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
             user.save();
