@@ -50,7 +50,7 @@ require('./model/flower.model');
 const Flower = mongoose.model('flowers');
 
 // Bot start
-const bot = new TelegramBot(process.env.TOKEN);
+module.exports = bot = new TelegramBot(process.env.TOKEN);
 bot.setWebHook(`${process.env.HEROKU_URL}bot`);
 
 const rub = globals.rub;
@@ -97,13 +97,13 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
     case '/contacts':
       return bot.sendMessage(id, helper.contacts);
     case '/bouquets':
-      sendCallback(msg, 'bouquets');
+      controller.sendCallback(msg, 'bouquets');
       break;
     case '/compose':
-      sendCallback(msg, 'compose');
+      controller.sendCallback(msg, 'compose');
       break;
     case '/gifts':
-      sendCallback(msg, 'gifts');
+      controller.sendCallback(msg, 'gifts');
       break;
     case '/reasons':
       showReasons(id);
@@ -142,13 +142,13 @@ bot.on('message', msg => {
 
     switch(msg.text) {
       case kb.home.bouqets:
-        sendCallback(msg, 'bouquets');
+        controller.sendCallback(msg, 'bouquets');
         break;
       case kb.home.compose:
-        sendCallback(msg, 'compose');
+        controller.sendCallback(msg, 'compose');
         break;
       case kb.home.gifts:
-        sendCallback(msg, 'gifts');
+        controller.sendCallback(msg, 'gifts');
         break;
       case kb.home.contacts:
         return bot.sendMessage(id, helper.contacts);
@@ -611,38 +611,6 @@ function order(id) {
     })
 }
 
-function sendCallback(msg, item) {
-  const id = helper.getChatId(msg);
-  let text, keyboard;
-
-  switch (item) {
-    case 'bouquets':
-      text = `Хотите заказать букет?\nВы можете выбрать, из каких цветов будет составлен букет, или повод, по которому Вы хотите его подарить.\nТакже Вы можете отсортировать букеты по стоимости или посмотреть весь ассортимент`;
-      keyboard = {
-        inline_keyboard: [
-          [{text: `🌹 Выбрать цветы`, callback_data: 'b_flowers'}],
-          [{text: `🎉 Выбрать повод`, callback_data: 'b_reasons'}],
-          [{text: `💰 Выбрать по цене`, callback_data: 'b_price'}],
-          [{text: `👀 Смотреть все`, callback_data: 'b_all'}]
-        ]
-      };
-      break;
-    case 'compose':
-    case 'gifts':
-      text = `Хотите заказать ${item === 'compose' ? 'композицию' : 'подарок'}?\nВы можете уточнить желаемую стоимость, или посмотреть все ${item === 'compose' ? 'композиции' : 'подарки'}`;
-      keyboard = {
-        inline_keyboard: [
-          [{text: `💰 Выбрать по цене`, callback_data: item === 'compose' ? 'c_price' : 'g_price'}],
-          [{text: `👀 Смотреть все`, callback_data: item === 'compose' ? 'c_all' : 'g_all'}]
-        ]
-      };
-      break;
-  }
-  return bot.sendMessage(id, text, {
-    reply_markup: keyboard
-  });
-}
-
 function findByQuery(user, query) {
   let page = user.pages[query];
 
@@ -854,3 +822,5 @@ function changePagePrice(user, query, action, cb_data) {
       .catch((err) => console.log(err))
   }
 }
+
+const controller = require('./controller/controller');
