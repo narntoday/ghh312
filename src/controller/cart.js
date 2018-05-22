@@ -23,10 +23,10 @@ module.exports = {
         if (!found) {
           cart.push({uid: item, price: flower.price, quantity: 1});
           user.save()
-            .then(u => console.log(u))
+            .then(u => console.log('user', u))
             .catch(err => console.log(err))
         } else {
-          const sub = cart.id(flower._id);
+          const sub = user.cart.id(flower._id);
           console.log('sub', sub, 'flower = ', flower)
           // user.cart.id(flower._id).set({quantity: sub.quantity += 1});
           // user.save()
