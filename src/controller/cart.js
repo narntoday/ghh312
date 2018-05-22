@@ -1,6 +1,5 @@
 const bot = require('../index');
 const helper = require('../helper');
-const User = require('../model/user.model');
 const Flower = require('../model/flower.model');
 const globals = require('../globals');
 const rub = globals.rub;
@@ -8,57 +7,39 @@ const rub = globals.rub;
 module.exports = {
   async addToCart (item, user) {
     try {
-      const flower = await Flower.findOne({uid: item}),
-            cart = user.cart;
-      if (cart.length === 1) {
-        await cart.push({uid: item, price: flower.price, quantity: 1});
+      const flower = await Flower.findOne({uid: item});
+      if (user.cart.length === 1) {
+        await user.cart.push({uid: item, price: flower.price, quantity: 1});
         user.save();
-      } else if (cart.length > 1) {
-        const found = cart.slice(1).some(el => {
-          return el.uid === item
-        });
-
-        console.log('found', found)
-
+      } else if (user.cart.length > 1) {
+        const found = user.cart.slice(1).some(el => el.uid === item);
         if (!found) {
-          cart.push({uid: item, price: flower.price, quantity: 1});
+          user.cart.push({uid: item, price: flower.price, quantity: 1});
           user.save()
-            .then(u => console.log('user before save', u))
-            .catch(err => console.log(err))
         } else {
-          const sub = user.cart.find(obj => obj.uid === flower.uid);
-          console.log('sub', sub,)
-          user.cart.id(sub._id).set({quantity: sub.quantity + 1});
+          const subDoc = user.cart.find(el => el.uid === item);
+          user.cart.id(subDoc._id).set({quantity: subDoc.quantity + 1});
           user.save()
-            .then(u => console.log('user after save', u))
-            .catch(err => console.log(err))
         }
-
-
-        // user.cart.forEach(c => {
-        //   if (item === c.uid) {
-        //     const sub = user.cart.id(c._id)
-        //     console.log('c._id = ', c._id, 'sub =', sub)
-        //     //user.set()
-        //     // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
-        //     //   .then(() => {
-        //     //     user.save()
-        //     //       .then(u => console.log(u))
-        //     //       .catch(err => console.log(err))
-        //     //   }).catch(err => console.log(err));
-        //   } else {
-        //     let obj = {
-        //       uid: item,
-        //       price: flower.price,
-        //       quantity: 1
-        //     };
-        //
-        //     user.cart.create(obj);
-        //     user.save()
-        //       .then(u => console.log(u))
-        //       .catch(err => console.log(err))
-        //   }
-        // })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  removeFromCart (item, user) {
+    try {
+      const found = user.cart.slice(1).some(el => el.uid === item);
+      if (!found) {
+        return bot.sendMessage(user.userId, `В вашей корзине данного товара нет`)
+      } else {
+        const subDoc = user.cart.find(el => el.uid === item);
+        if (subDoc.quantity === 1) {
+          user.cart.id(subDoc._id).remove();
+          user.save()
+        } else {
+          user.cart.id(subDoc._id).set({quantity: subDoc.quantity - 1});
+          user.save()
+        }
       }
     } catch (error) {
       console.log(error)

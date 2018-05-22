@@ -27,23 +27,6 @@ module.exports = {
   html(query) {
     return `Новый заказ!\n<b>Имя:</b> ${query.name}\n<b>Адрес:</b> ${query.address}\n<b>Телефон:</b> ${query.phone}`
   },
-  removeFromCart(item, user) {
-    item = item.substr(item.indexOf('/f'), 5);
-
-    User.findOne({userId: user}).then(user => {
-      user.cart.slice(1).forEach(f => {
-        if (f.uid === item && f.quantity === 1) {
-          user.cart.id(f._id).remove();
-          user.save()
-        } else if ( f.uid === item && f.quantity > 1 ) {
-          let q = f.quantity;
-          user.cart.id(f._id).set({quantity: q-1});
-          user.save();
-        }
-      });
-    }).catch((err) => console.log(err))
-  },
-
   getTotalPrice(arr) {
     var price = [];
     var result = 0;

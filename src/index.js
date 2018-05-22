@@ -339,7 +339,7 @@ bot.on('callback_query', msg => {
           bot.answerCallbackQuery({
             callback_query_id: msg.id,
             text: 'Удалено из корзины'
-          }).then(() => helper.removeFromCart(msg.message.caption, msg.message.chat.id))
+          }).then(() => CartController.removeFromCart(msg.message.caption, msg.message.chat.id))
             .catch((err) => console.log(err));
           break;
 
