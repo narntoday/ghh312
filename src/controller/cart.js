@@ -21,7 +21,7 @@ module.exports = {
           };
         });
 
-        console.log('found', found)
+        console.log('found', found.success)
 
         if (!found.success) {
           cart.push({uid: item, price: flower.price, quantity: 1})
