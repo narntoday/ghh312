@@ -15,10 +15,19 @@ module.exports = {
         user.save();
       } else if (cart.length > 1) {
         const found = cart.slice(1).some(el => {
-          return el.uid === item;
+          return {
+            success: el.uid === item,
+            foundId: el._id
+          };
         });
 
         console.log(found)
+
+        if (!found.success) {
+          cart.push({uid: item, price: flower.price, quantity: 1})
+        } else {
+          console.log(found.foundId)
+        }
 
 
         // user.cart.forEach(c => {
