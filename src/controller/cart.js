@@ -64,7 +64,7 @@ module.exports = {
               ]
             }
           })
-        }).then(() => {
+        })).then(() => {
           const price = this.getTotalPrice(user);
           return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
             parse_mode: 'HTML',
@@ -75,8 +75,8 @@ module.exports = {
               ]
             }
           })
-        }).catch(err => console.log(err)
-      }).catch(err => console.log(err));
+        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
     } else {
       return bot.sendMessage(user.userId, `Корзина пуста`);
     }
