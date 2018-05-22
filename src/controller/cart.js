@@ -16,7 +16,7 @@ module.exports = {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
             const sub = user.cart.id(c._id)
-            console.log('c._id = ', 'sub =', sub)
+            console.log('c._id = ', c._id, 'sub =', sub)
             //user.set()
             // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
             //   .then(() => {
@@ -26,7 +26,9 @@ module.exports = {
             //   }).catch(err => console.log(err));
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
-            user.save();
+            user.save()
+              .then(u => console.log(u))
+              .catch(err => console.log(err))
           }
         })
       }
