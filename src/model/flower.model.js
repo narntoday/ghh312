@@ -2,7 +2,10 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const FlowerSchema = new Schema({
-  uid: String,
+  uid: {
+    type: String,
+    unique: true
+  },
   category: String,
   title: String,
   image: String,
