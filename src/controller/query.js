@@ -8,7 +8,7 @@ module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
       const description = f.description.split(',').join('\n');
-      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n<em>Описание:</em>\n${description}`;
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n${description}`;
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
@@ -45,7 +45,7 @@ module.exports = {
                     {text: `➕`, callback_data: `add`}
                   ],
                   [
-                    {text: '🗒 Подробнее', callback_data: `/f${flower.uid}`}
+                    {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
                   ]
                 ]
               }
@@ -168,7 +168,7 @@ module.exports = {
               {text: `➕`, callback_data: `add`}
             ],
             [
-              {text: '🗒 Подробнее', callback_data: `/f${flower.uid}`}
+              {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
             ]
           ]
         }

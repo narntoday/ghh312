@@ -23,7 +23,8 @@ router.post('/bot', ctx => {
   ctx.status = 200
 });
 
-setInterval(() => https.get(process.env.HEROKU_URL), 6000);
+// Ping to prevent app sleeping
+setInterval(() => https.get(process.env.HEROKU_URL), 900000);
 
 app.use(Bodyparser());
 app.use(router.routes());
