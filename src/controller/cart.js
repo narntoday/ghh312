@@ -2,6 +2,8 @@ const bot = require('../index');
 const helper = require('../helper');
 const User = require('../model/user.model');
 const Flower = require('../model/flower.model');
+const globals = require('../globals');
+const rub = globals.rub;
 
 module.exports = {
   async addToCart (item, user) {
@@ -14,8 +16,11 @@ module.exports = {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
             User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
-              .then(() => user.save())
-              .catch(err => console.log(err));
+              .then(() => {
+                user.save()
+                  .then(u => console.log(u))
+                  .catch(err => console.log(err))
+              }).catch(err => console.log(err));
           } else {
             user.cart.push({uid: item, price: flower.price, quantity: 1});
             user.save();

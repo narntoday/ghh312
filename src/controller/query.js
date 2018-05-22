@@ -8,7 +8,7 @@ module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
       const description = f.description.split(', ').join('\n');
-      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n<em>Описание:</em>${description}`;
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n<em>Описание:</em>\n${description}`;
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
