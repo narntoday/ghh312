@@ -5,7 +5,7 @@ const globals = require('../globals');
 const rub = globals.rub;
 
 module.exports = {
-  sendCallback(msg, item) {
+  sendCallback (msg, item) {
     const id = helper.getChatId(msg);
     let text, keyboard;
 
@@ -37,7 +37,7 @@ module.exports = {
       reply_markup: keyboard
     });
   },
-  showReasons(id) {
+  showReasons (id) {
   return bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
     reply_markup: {
       inline_keyboard: [
@@ -49,8 +49,7 @@ module.exports = {
     }
   });
 },
-  choosePrice(msg) {
-    console.log(msg)
+  choosePrice (msg) {
     let item = msg.data.substr(0,1);
     return bot.sendMessage(msg.message.chat.id, `Пожалуйста, уточните стоимость`, {
       reply_markup: {
@@ -59,6 +58,18 @@ module.exports = {
           [{text: `от 2000 ${rub} до 3500 ${rub}`, callback_data: `${item}_midlow`}],
           [{text: `от 3500 ${rub} до 5000 ${rub}`, callback_data: `${item}_midhigh`}],
           [{text: `от 5000 ${rub}`, callback_data: `${item}_high`}]
+        ]
+      }
+    })
+  },
+  choosePriceForAll (msg) {
+    return bot.sendMessage(msg.from.id, `Пожалуйста, уточните стоимость`, {
+      reply_markup: {
+        inline_keyboard: [
+          [{text: `до 2000 ${rub}`, callback_data: `all_low`}],
+          [{text: `от 2000 ${rub} до 3500 ${rub}`, callback_data: `all_midlow`}],
+          [{text: `от 3500 ${rub} до 5000 ${rub}`, callback_data: `all_midhigh`}],
+          [{text: `от 5000 ${rub}`, callback_data: `all_high`}]
         ]
       }
     })

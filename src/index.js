@@ -104,7 +104,7 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
       mainController.showReasons(id);
       break;
     case '/prices':
-      mainController.choosePrice(msg);
+      mainController.choosePriceForAll(msg);
       break
   }
 });
