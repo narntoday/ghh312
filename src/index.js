@@ -381,7 +381,7 @@ bot.on('callback_query', msg => {
       bot.answerCallbackQuery({
         callback_query_id: msg.id,
         text: `Добавлено в корзину`
-      }).then(() => cartController.addToCart(item))
+      }).then(() => cartController.addToCart(item, user))
         .catch((err) => console.log(err));
     }
   }).catch(err => console.log(err));
