@@ -15,7 +15,7 @@ module.exports = {
       } else if (user.cart.length > 1) {
         function itemIsPresent(newItem) {
           user.cart.forEach(c => {
-            if (item === c.uid) {
+            if (newItem === c.uid) {
               return true
             }
           })
