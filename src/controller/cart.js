@@ -13,7 +13,7 @@ module.exports = {
         await user.cart.push({uid: item, price: flower.price, quantity: 1});
         user.save();
       } else if (user.cart.length > 1) {
-        user.cart.slice(1).forEach(c => {
+        user.cart.forEach(c => {
           if (item === c.uid) {
             const sub = user.cart.id(c._id)
             console.log('c._id = ', c._id, 'sub =', sub)
@@ -25,13 +25,13 @@ module.exports = {
             //       .catch(err => console.log(err))
             //   }).catch(err => console.log(err));
           } else {
-            console.log(user.cart.slice(1));
             let obj = {
               uid: item,
               price: flower.price,
               quantity: 1
             };
-            user.cart.push(obj);
+
+            user.cart.create(obj);
             user.save()
               .then(u => console.log(u))
               .catch(err => console.log(err))

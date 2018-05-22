@@ -38,6 +38,7 @@ helper.logStart();
 mongoose.connect(`${process.env.PROD_MONGODB}`, mongooseOptions)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
+mongoose.set('debug', true);
 
 const User = require('./model/user.model');
 const Flower = require('./model/flower.model');
