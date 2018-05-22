@@ -13,30 +13,40 @@ module.exports = {
         await user.cart.push({uid: item, price: flower.price, quantity: 1});
         user.save();
       } else if (user.cart.length > 1) {
-        user.cart.forEach(c => {
-          if (item === c.uid) {
-            const sub = user.cart.id(c._id)
-            console.log('c._id = ', c._id, 'sub =', sub)
-            //user.set()
-            // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
-            //   .then(() => {
-            //     user.save()
-            //       .then(u => console.log(u))
-            //       .catch(err => console.log(err))
-            //   }).catch(err => console.log(err));
-          } else {
-            let obj = {
-              uid: item,
-              price: flower.price,
-              quantity: 1
-            };
+        function itemIsPresent(newItem) {
+          user.cart.forEach(c => {
+            if (item === c.uid) {
+              return true
+            }
+          })
+        }
+        console.log(itemIsPresent(item))
 
-            user.cart.create(obj);
-            user.save()
-              .then(u => console.log(u))
-              .catch(err => console.log(err))
-          }
-        })
+
+        // user.cart.forEach(c => {
+        //   if (item === c.uid) {
+        //     const sub = user.cart.id(c._id)
+        //     console.log('c._id = ', c._id, 'sub =', sub)
+        //     //user.set()
+        //     // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
+        //     //   .then(() => {
+        //     //     user.save()
+        //     //       .then(u => console.log(u))
+        //     //       .catch(err => console.log(err))
+        //     //   }).catch(err => console.log(err));
+        //   } else {
+        //     let obj = {
+        //       uid: item,
+        //       price: flower.price,
+        //       quantity: 1
+        //     };
+        //
+        //     user.cart.create(obj);
+        //     user.save()
+        //       .then(u => console.log(u))
+        //       .catch(err => console.log(err))
+        //   }
+        // })
       }
     } catch (error) {
       console.log(error)
