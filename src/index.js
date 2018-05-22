@@ -87,7 +87,7 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
       break;
     case '/cart':
       User.findOne({userId: id})
-        .then(user => cartController(user))
+        .then(user => cartController.showCart(user))
         .catch(err => console.log(err));
       break;
     case '/contacts':
@@ -140,7 +140,7 @@ bot.on('message', msg => {
       case kb.home.contacts:
         return bot.sendMessage(id, helper.contacts);
       case kb.home.cart:
-        cartController(user);
+        cartController.showCart(user);
         break
     }
   }).catch(err => console.log(err));
@@ -334,12 +334,13 @@ bot.on('callback_query', msg => {
           break;
 
         // add to cart
-        case 'add':
-          const item = msg.message.caption;
+        case (msg.data.startsWith('add')):
+          const item = msg.data.slice(5);
+          console.log(item)
           bot.answerCallbackQuery({
             callback_query_id: msg.id,
             text: `Добавлено в корзину`
-          }).then(() => helper.addToCart(item, id))
+          }).then(() => cartController.addToCart(item))
             .catch((err) => console.log(err));
           break;
 
@@ -355,7 +356,7 @@ bot.on('callback_query', msg => {
         // show cart
         case 'cart':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => cartController(user))
+            .then(() => cartController.showCart(user))
             .catch((err) => console.log(err));
           break;
 

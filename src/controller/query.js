@@ -7,17 +7,17 @@ const limit = globals.limit;
 module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
-      const description = f.description.split(',').join('\n');
-      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n${description}`;
+      const description = f.description.split(', ').join('\n');
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n<em>Описание:</em>${description}`;
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
         reply_markup: {
           inline_keyboard: [
             [
-              {text: `-`, callback_data: 'delete'},
-              {text: 'кол-во', callback_data: 'cart'},
-              {text: `+`, callback_data: `add`}
+              {text: `➖`, callback_data: 'delete'},
+              {text: '🛒', callback_data: 'cart'},
+              {text: `➕`, callback_data: `add`}
             ]
           ]
         }
@@ -41,7 +41,7 @@ module.exports = {
                 inline_keyboard: [
                   [
                     {text: `➖`, callback_data: 'delete'},
-                    {text: '🛍️', callback_data: 'cart'},
+                    {text: '🛒️', callback_data: 'cart'},
                     {text: `➕`, callback_data: `add`}
                   ],
                   [
@@ -164,7 +164,7 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: 'delete'},
-              {text: '🛍️', callback_data: 'cart'},
+              {text: '🛒️', callback_data: 'cart'},
               {text: `➕`, callback_data: `add`}
             ],
             [
