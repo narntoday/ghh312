@@ -12,4 +12,4 @@ const FlowerSchema = new Schema({
   description: String
 });
 
-mongoose.model('flowers', FlowerSchema);
+module.exports = Flower = mongoose.model('flowers', FlowerSchema);

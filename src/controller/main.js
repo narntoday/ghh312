@@ -1,9 +1,8 @@
 const bot = require('../index');
 const helper = require('../helper');
-
-bot.on('message', msg => {
-  console.log('Module exported')
-});
+const kb = require ('../keyboard-buttons');
+const globals = require('../globals');
+const rub = globals.rub;
 
 module.exports = {
   sendCallback(msg, item) {
@@ -37,5 +36,30 @@ module.exports = {
     return bot.sendMessage(id, text, {
       reply_markup: keyboard
     });
-  }
+  },
+  showReasons(id) {
+  return bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
+    reply_markup: {
+      inline_keyboard: [
+        [{text: kb.reasons.birthday, callback_data: 'birthday'}],
+        [{text: kb.reasons.jubilee, callback_data: 'jubilee'}],
+        [{text: kb.reasons.wedding, callback_data: 'wedding'}],
+        [{text: kb.reasons.love, callback_data: 'love'}]
+      ]
+    }
+  });
+},
+  choosePrice(msg) {
+  let item = msg.data.substr(0,1);
+  return bot.sendMessage(msg.message.chat.id, `Пожалуйста, уточните стоимость`, {
+    reply_markup: {
+      inline_keyboard: [
+        [{text: `до 2000 ${rub}`, callback_data: `${item}_low`}],
+        [{text: `от 2000 ${rub} до 3500 ${rub}`, callback_data: `${item}_midlow`}],
+        [{text: `от 3500 ${rub} до 5000 ${rub}`, callback_data: `${item}_midhigh`}],
+        [{text: `от 5000 ${rub}`, callback_data: `${item}_high`}]
+      ]
+    }
+  })
+}
 };

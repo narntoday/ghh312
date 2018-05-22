@@ -32,4 +32,4 @@ const UserSchema = new Schema({
   cart: [cartSchema]
 });
 
-mongoose.model('users', UserSchema);
+module.exports = User = mongoose.model('users', UserSchema);

@@ -9,4 +9,4 @@ const FormSchema = new Schema({
   phone: String
 });
 
-mongoose.model('orders', FormSchema);
+module.exports = Form = mongoose.model('orders', FormSchema);
