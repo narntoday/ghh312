@@ -8,19 +8,17 @@ const rub = globals.rub;
 module.exports = {
   async addToCart (item, user) {
     try {
-      const flower = await Flower.findOne({uid: item});
-      if (user.cart.length === 1) {
-        await user.cart.push({uid: item, price: flower.price, quantity: 1});
+      const flower = await Flower.findOne({uid: item}),
+            cart = user.cart;
+      if (cart.length === 1) {
+        await cart.push({uid: item, price: flower.price, quantity: 1});
         user.save();
-      } else if (user.cart.length > 1) {
-        const itemIsPresent = function(newItem) {
-          for (let i = 0; i < user.cart.slice(1).length; i++) {
-            if (newItem === i.uid) {
-              return true
-            }
-          }
-        };
-        console.log(itemIsPresent(item))
+      } else if (cart.length > 1) {
+        const found = cart.slice(1).some(el => {
+          return el.uid === item;
+        });
+
+        console.log(found)
 
 
         // user.cart.forEach(c => {
