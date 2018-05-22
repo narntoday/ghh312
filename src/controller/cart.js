@@ -26,7 +26,8 @@ module.exports = {
             .then(u => console.log('user', u))
             .catch(err => console.log(err))
         } else {
-          const sub = user.cart.id(flower._id);
+
+          const sub = cart.find(obj => obj.uid = flower.uid);
           console.log('sub', sub, 'flower = ', flower)
           // user.cart.id(flower._id).set({quantity: sub.quantity += 1});
           // user.save()
