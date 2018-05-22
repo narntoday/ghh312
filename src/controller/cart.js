@@ -60,7 +60,7 @@ module.exports = {
           // you should return every promise in promise.all
           Promise.all(user.cart.slice(1).map(flower => {
             return bot.sendPhoto(user.userId, flower.image, {
-              caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
+              caption: `<b>${flower.title}</b> - <em>${flower.quantity} шт.</em> \n<b>Цена ${flower.price} ${rub}</b>`,
               parse_mode: 'HTML',
               reply_markup: {
                 inline_keyboard: [

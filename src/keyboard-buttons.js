@@ -3,7 +3,6 @@ module.exports = {
     bouqets: 'Букеты',
     compose: 'Композиции',
     gifts: 'Подарки',
-    contacts: 'Контакты',
     cart: 'Корзина'
   },
   cart: {

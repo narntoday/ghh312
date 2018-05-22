@@ -12,7 +12,7 @@ module.exports = {
     switch (item) {
       case 'bouquets':
       case 'compose':
-        text = `Хотите заказать ${item === 'compose' ? 'композицию' : 'букет'}?\nВы можете выбрать повод, на который Вы желаете подарить ${item === 'compose' ? 'композицию' : 'букет'}, отсортировать по стоимости ${item === 'compose' ? 'композиции' : 'букеты'}, или посмотреть весь ассортимент`;
+        text = `Хотите заказать ${item === 'compose' ? 'композицию' : 'букет'}?\nВы можете выбрать повод, на который Вы желаете ${item === 'compose' ? 'её' : 'его'} подарить , отсортировать ${item === 'compose' ? 'композиции' : 'букеты'} по стоимости, или посмотреть весь ассортимент`;
         keyboard = {
           inline_keyboard: [
             [{text: `🎉 Выбрать повод`, callback_data: item === 'compose' ? 'c_reasons' : 'b_reasons'}],
@@ -38,10 +38,15 @@ module.exports = {
   return bot.sendMessage(id, `Выберите повод, на который хотите подарить букет:`, {
     reply_markup: {
       inline_keyboard: [
-        [{text: kb.reasons.birthday, callback_data: 'birthday'}],
-        [{text: kb.reasons.jubilee, callback_data: 'jubilee'}],
-        [{text: kb.reasons.wedding, callback_data: 'wedding'}],
-        [{text: kb.reasons.love, callback_data: 'love'}]
+        [
+          {text: kb.reasons.birthday, callback_data: 'birthday'},
+          {text: kb.reasons.jubilee, callback_data: 'jubilee'}
+        ],
+        [
+          {text: kb.reasons.wedding, callback_data: 'wedding'},
+          {text: kb.reasons.love, callback_data: 'love'}
+
+        ]
       ]
     }
   });
