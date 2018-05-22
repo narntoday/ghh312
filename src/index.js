@@ -104,7 +104,7 @@ bot.onText(/^\/[a-zA-Z]+$/, msg => {
       mainController.showReasons(id);
       break;
     case '/prices':
-      mainController.choosePrice(id);
+      mainController.choosePrice(msg);
       break
   }
 });
@@ -190,21 +190,21 @@ bot.on('callback_query', msg => {
         case 'more bouquets':
         case 'more compose':
         case 'more gifts':
-          queryController.findByPrice(user, msg.data.slice(5), 'add');
+          pageController.changePage(user, msg.data.slice(5), 'add');
           break;
 
         // go to previous page
         case 'less bouquets':
         case 'less compose':
         case 'less gifts':
-          queryController.findByPrice(user, msg.data.slice(5), 'remove');
+          pageController.changePage(user, msg.data.slice(5), 'remove');
           break;
 
         //reset page
         case 'start bouquets':
         case 'start compose':
         case 'start gifts':
-          queryController.findByPrice(user, msg.data.slice(6), 'reset');
+          pageController.changePage(user, msg.data.slice(6), 'reset');
           break;
 
         // choose price
