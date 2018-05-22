@@ -15,7 +15,7 @@ module.exports = {
       } else if (user.cart.length > 1) {
         user.cart.slice(1).forEach(c => {
           if (item === c.uid) {
-            const sub = user.cart.id(_id)
+            const sub = user.cart.id(c._id)
             console.log('c._id = ', 'sub =', sub)
             //user.set()
             // User.findOneAndUpdate(c._id, {quantity: c.quantity += 1})
