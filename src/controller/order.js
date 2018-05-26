@@ -22,30 +22,23 @@ module.exports = async (id) => {
 
         const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
           user.set('name', msg.text).save()
-        })
-
-        bot.removeReplyListener(replyId)
-      })
-
-        //Second question
-        .then(() => {
+          bot.removeReplyListener(replyId)
           bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup)
             .then(msg => {
               const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
                 user.set('address', msg.text).save()
+                bot.removeReplyListener(replyId)
+                bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup)
+                  .then(msg => {
+                    const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
+                      user.set('phone', msg.text).save()
+                      bot.removeReplyListener(replyId)
+                    })
+                  })
               })
-              bot.removeReplyListener(replyId)
             })
         })
-
-        // THird question
-          bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup)
-            .then(msg => {
-              const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
-                user.set('phone', msg.text).save()
-              })
-              bot.removeReplyListener(replyId)
-            })
+      })
   } catch (error) {
     console.error(error)
   }
