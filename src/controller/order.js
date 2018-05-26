@@ -1,11 +1,22 @@
 const bot = require('../index')
 const Form = require('../model/order.model')
+const User = require('../model/user.model')
 
 module.exports = async (id) => {
   try {
     const user = await Form.findOne({id: id})
     if (!user) {
       new Form({id: id}).save()
+    } else if (user.name && user.address && user.phone) {
+      const question = `Вы уже делали заказ. Использовать ранее введённые данные?\n\n<b>Имя:</b>${user.name}\n<b>Имя:</b>${user.address}<b>Телефон:</b>${user.phone}`
+      return bot.sendMessage(user.id, question, {
+        reply_markup: {
+          inline_keyboard: [
+              [{text: 'Данные верны', callback_data: 'use_exist_data'}],
+              [{text: 'Ввести новые данные', callback_data: 'use_new_data'}]
+          ]
+        }
+      })
     }
     const replyMarkup = {
       reply_markup: {
@@ -39,7 +50,14 @@ module.exports = async (id) => {
               })
             })
         })
-      }).then(() => bot.sendMessage(447069712, `Новый заказ!`))
+        User.findOne({userId: user.id}).then(user => {
+          const text = user.cart.slice(1).map(item => {
+            return item.title.join('\n')
+          })
+          bot.sendMessage(447069712, `Новый заказ!\n${text}`)
+        })
+
+      })
   } catch (error) {
     console.error(error)
   }
