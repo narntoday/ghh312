@@ -52,19 +52,16 @@ module.exports = async (id) => {
                       // Send an order to manager
                       User.findOne({userId: user.id})
                         .then(result => {
-                          const orderDetails = result.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
+                          const orderDetails = result.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
                           const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
-                          return bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
+                          bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
+                            .then(() => CartController.clearCart(user))
                         })
-
-                          // Clear user's cart after order
-                          .then(() => CartController.clearCart(user))
                     })
                   })
               })
             })
         })
-
       })
   } catch (error) {
     console.error(error)

@@ -337,6 +337,7 @@ bot.on('callback_query', msg => {
             .then(() => MainController.showReasons(id, 'compose'))
           break;
 
+        // TODO let user choose by price or see all before sending items by reasons
         case 'b_birthday':
         case 'c_birthday':
           bot.answerCallbackQuery({callback_query_id: msg.id})
@@ -371,6 +372,11 @@ bot.on('callback_query', msg => {
                 form.save()
               })
             .then(() => OrderController(msg.message.chat.id))
+          break;
+
+        // use existing data for order
+        case 'use_exist_data':
+          //TODO send a message to user 'Your order received' and a message to manager
           break;
       }
 
