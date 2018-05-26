@@ -8,7 +8,7 @@ module.exports = async (id) => {
     if (!user) {
       new Form({id: id}).save()
     } else if (user.name && user.address && user.phone) {
-      const question = `Вы уже делали заказ. Использовать ранее введённые данные?\n\n<b>Имя:</b>${user.name}\n<b>Адрес доставки:</b>${user.address}\n<b>Телефон:</b>${user.phone}`
+      const question = `Вы уже делали заказ. Использовать ранее введённые данные?\n\n<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
       return bot.sendMessage(user.id, question, {
         parse_mode: 'HTML',
         reply_markup: {
@@ -19,6 +19,7 @@ module.exports = async (id) => {
         }
       })
     }
+
     const replyMarkup = {
       reply_markup: {
         force_reply: true
@@ -46,16 +47,17 @@ module.exports = async (id) => {
                     const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
                       user.set('phone', msg.text).save()
                       bot.removeReplyListener(replyId)
+                      User.findOne({userId: user.id}).then(result => {
+                        const orderDetails = result.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
+                        const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
+                        return bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`)
+                      })
                     })
                   })
               })
             })
         })
-        User.findOne({userId: user.id}).then(user => {
-          console.log(user)
-          const text = user.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
-          return bot.sendMessage(447069712, `Новый заказ!\n${text}`)
-        })
+
       })
   } catch (error) {
     console.error(error)
