@@ -174,7 +174,6 @@ bot.on('callback_query', msg => {
             callback_query_id: msg.id,
             text: `Показаны все ${itemText}`
           }).then(() => QueryController.findByQuery(user, showItem))
-            .catch(err => console.log(err));
           break;
 
         // go to next page
@@ -204,7 +203,6 @@ bot.on('callback_query', msg => {
         case 'g_price':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => MainController.choosePrice(msg))
-            .catch(err => console.log(err));
           break;
 
         // show items by price
@@ -237,8 +235,7 @@ bot.on('callback_query', msg => {
             .then(() => {
               bot.answerCallbackQuery({callback_query_id: msg.id})
                 .then(() => QueryController.findByPrice(user, query, msg.data))
-                .catch((err) => console.log(err))
-            }).catch((err) => console.log(err));
+            })
           break;
 
         // go to next page of price
@@ -248,7 +245,6 @@ bot.on('callback_query', msg => {
         case 'morePrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'bouquets', 'add', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'morePrice c_low':
@@ -257,7 +253,6 @@ bot.on('callback_query', msg => {
         case 'morePrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'compose', 'add', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'morePrice g_low':
@@ -266,7 +261,6 @@ bot.on('callback_query', msg => {
         case 'morePrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'gifts', 'add', msg.data))
-            .catch(err => console.log(err));
           break;
 
         // go to prev page of price
@@ -276,7 +270,6 @@ bot.on('callback_query', msg => {
         case 'lessPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'bouquets', 'remove', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'lessPrice с_low':
@@ -285,7 +278,6 @@ bot.on('callback_query', msg => {
         case 'lessPrice с_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'compose', 'remove', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'lessPrice g_low':
@@ -294,7 +286,6 @@ bot.on('callback_query', msg => {
         case 'lessPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'gifts', 'remove', msg.data))
-            .catch(err => console.log(err));
           break;
 
         // reset page
@@ -304,7 +295,6 @@ bot.on('callback_query', msg => {
         case 'startPrice b_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'bouquets', 'reset', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'startPrice c_low':
@@ -313,7 +303,6 @@ bot.on('callback_query', msg => {
         case 'startPrice c_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'compose', 'reset', msg.data))
-            .catch(err => console.log(err));
           break;
 
         case 'startPrice g_low':
@@ -322,14 +311,12 @@ bot.on('callback_query', msg => {
         case 'startPrice g_high':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => PageController.changePagePrice(user, 'gifts', 'reset', msg.data))
-            .catch(err => console.log(err));
           break;
 
         // show cart
         case 'cart':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => CartController.showCart(user))
-            .catch((err) => console.log(err));
           break;
 
         // clear cart:
@@ -338,44 +325,37 @@ bot.on('callback_query', msg => {
             callback_query_id: msg.id,
             text: 'Корзина очищена!'
           }).then(() => CartController.clearCart(user))
-            .catch((err) => console.log(err));
           break;
 
         // show items by reasons
         case 'b_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-              .then(() => MainController.showReasons(id, 'bouquet'))
-              .catch(err => console.log(err));
+            .then(() => MainController.showReasons(id, 'bouquet'))
           break;
         case 'с_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-              .then(() => MainController.showReasons(id, 'compose'))
-              .catch(err => console.log(err));
+            .then(() => MainController.showReasons(id, 'compose'))
           break;
 
         case 'b_birthday':
         case 'c_birthday':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => QueryController.findByReason(id, 'birthday', msg.data))
-            .catch((err) => console.log(err));
           break;
         case 'b_jubilee':
         case 'c_jubilee':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-              .then(() => QueryController.findByReason(id, 'jubilee', msg.data))
-              .catch((err) => console.log(err));
+            .then(() => QueryController.findByReason(id, 'jubilee', msg.data))
           break;
         case 'b_wedding':
         case 'c_wedding':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-              .then(() => QueryController.findByReason(id, 'wedding', msg.data))
-              .catch((err) => console.log(err));
+            .then(() => QueryController.findByReason(id, 'wedding', msg.data))
           break;
         case 'b_love':
         case 'c_love':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-              .then(() => QueryController.findByReason(id, 'love', msg.data))
-              .catch((err) => console.log(err));
+            .then(() => QueryController.findByReason(id, 'love', msg.data))
           break;
 
         // process the order
@@ -385,9 +365,7 @@ bot.on('callback_query', msg => {
 
         // use new data for order
         case 'use_new_data':
-          Form.findOne({id: user.userId})
-            .remove()
-            .save()
+          Form.findOneAndRemove({id: user.userId}).save()
             .then(() => OrderController(msg.message.chat.id))
           break;
       }
