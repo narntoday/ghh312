@@ -53,12 +53,9 @@ module.exports = async (id) => {
         })
         User.findOne({userId: user.id}).then(user => {
           console.log(user)
-          // const text = user.cart.slice(1).map(item => {
-          //   return item.title.join('\n')
-          // })
-          // bot.sendMessage(447069712, `Новый заказ!\n${text}`)
+          const text = user.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
+          return bot.sendMessage(447069712, `Новый заказ!\n${text}`)
         })
-
       })
   } catch (error) {
     console.error(error)

@@ -38,7 +38,6 @@ helper.logStart();
 mongoose.connect(`${process.env.PROD_MONGODB}`, mongooseOptions)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
-mongoose.set('debug', true);
 
 const User = require('./model/user.model');
 const Flower = require('./model/flower.model');
@@ -387,7 +386,10 @@ bot.on('callback_query', msg => {
         // use new data for order
         case 'use_new_data':
           Form.findOne({id: user.userId})
-            .then(data => data.set({}).save())
+            .then(data => {
+              data = {}
+              data.save()
+            })
             .then(() => OrderController(msg.message.chat.id))
           break;
       }
