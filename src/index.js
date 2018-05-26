@@ -42,6 +42,7 @@ mongoose.set('debug', true);
 
 const User = require('./model/user.model');
 const Flower = require('./model/flower.model');
+const Form = require('./model/form.model');
 
 // Bot start
 module.exports = bot = new TelegramBot(process.env.TOKEN);
@@ -232,7 +233,6 @@ bot.on('callback_query', msg => {
               query = 'gifts';
               break
           }
-
           user.pagesPrice[query] = 1;
           user.save()
             .then(() => {
@@ -298,6 +298,7 @@ bot.on('callback_query', msg => {
             .catch(err => console.log(err));
           break;
 
+        // reset page
         case 'startPrice b_low':
         case 'startPrice b_midlow':
         case 'startPrice b_midhigh':
@@ -381,6 +382,13 @@ bot.on('callback_query', msg => {
         // process the order
         case 'order':
           OrderController(msg.message.chat.id);
+          break;
+
+        // use new data for order
+        case 'use_new_data':
+          Form.findOne({id: user.userId})
+            .then(data => data.set({}).save())
+            .then(() => OrderController(msg.message.chat.id))
           break;
       }
 

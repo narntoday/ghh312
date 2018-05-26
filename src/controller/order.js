@@ -8,8 +8,9 @@ module.exports = async (id) => {
     if (!user) {
       new Form({id: id}).save()
     } else if (user.name && user.address && user.phone) {
-      const question = `Вы уже делали заказ. Использовать ранее введённые данные?\n\n<b>Имя:</b>${user.name}\n<b>Имя:</b>${user.address}<b>Телефон:</b>${user.phone}`
+      const question = `Вы уже делали заказ. Использовать ранее введённые данные?\n\n<b>Имя:</b>${user.name}\n<b>Адрес доставки:</b>${user.address}\n<b>Телефон:</b>${user.phone}`
       return bot.sendMessage(user.id, question, {
+        parse_mode: 'HTML',
         reply_markup: {
           inline_keyboard: [
               [{text: 'Данные верны', callback_data: 'use_exist_data'}],
@@ -51,10 +52,11 @@ module.exports = async (id) => {
             })
         })
         User.findOne({userId: user.id}).then(user => {
-          const text = user.cart.slice(1).map(item => {
-            return item.title.join('\n')
-          })
-          bot.sendMessage(447069712, `Новый заказ!\n${text}`)
+          console.log(user)
+          // const text = user.cart.slice(1).map(item => {
+          //   return item.title.join('\n')
+          // })
+          // bot.sendMessage(447069712, `Новый заказ!\n${text}`)
         })
 
       })
