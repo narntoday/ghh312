@@ -17,11 +17,34 @@ module.exports = async (id) => {
     bot.sendMessage(id, `Как Ваше имя?`, replyMarkup)
       .then(msg => {
         const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+          console.log(msg)
           const user = await Form.findOne({id: id})
-          await user.set('name', msg.text).save()
+          user.set('name', msg.text).save()
         })
         bot.removeReplyListener(replyId)
       })
+        .then(() => {
+          bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup)
+            .then(msg => {
+              const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+                console.log(msg)
+                const user = await Form.findOne({id: id})
+                user.set('address', msg.text).save()
+              })
+              bot.removeReplyListener(replyId)
+            })
+        })
+          .then(() => {
+            bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup)
+              .then(msg => {
+                const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+                  console.log(msg)
+                  const user = await Form.findOne({id: id})
+                  user.set('phone', msg.text).save()
+                })
+                bot.removeReplyListener(replyId)
+              })
+          })
   } catch (error) {
     console.error(error)
   }
