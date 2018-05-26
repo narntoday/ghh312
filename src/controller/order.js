@@ -55,7 +55,7 @@ module.exports = async (id) => {
                           const orderDetails = result.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
                           const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
                           bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
-                            .then(() => CartController.clearCart(user))
+                            .then(() => CartController.clearCart(result))
                         })
                     })
                   })

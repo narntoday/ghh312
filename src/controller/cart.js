@@ -1,5 +1,4 @@
 const bot = require('../index');
-const helper = require('../helper');
 const Flower = require('../model/flower.model');
 const globals = require('../globals');
 const rub = globals.rub;
