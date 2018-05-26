@@ -15,36 +15,28 @@ module.exports = async (id) => {
     }
 
     bot.sendMessage(id, `Как Ваше имя?`, replyMarkup)
-      .then(msg => {
-        const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+      .then(async msg => {
+        const user = await Form.findOne({id: id})
+
+        return bot.onReplyToMessage(id, msg.message_id, msg => {
           console.log(msg)
-          const user = await Form.findOne({id: id})
           user.set('name', msg.text).save()
-        })
-        bot.removeReplyListener(replyId)
-      })
-        .then(() => {
-          bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup)
+        }).then(replyId => bot.removeReplyListener(replyId))
+            .then(() => bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup))
             .then(msg => {
-              const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+              return bot.onReplyToMessage(id, msg.message_id, msg => {
                 console.log(msg)
-                const user = await Form.findOne({id: id})
                 user.set('address', msg.text).save()
               })
-              bot.removeReplyListener(replyId)
-            })
-        })
-          .then(() => {
-            bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup)
-              .then(msg => {
-                const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
-                  console.log(msg)
-                  const user = await Form.findOne({id: id})
-                  user.set('phone', msg.text).save()
-                })
-                bot.removeReplyListener(replyId)
+            }).then(replyId => bot.removeReplyListener(replyId))
+            .then(() => bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup))
+            .then(msg => {
+              return bot.onReplyToMessage(id, msg.message_id, msg => {
+                console.log(msg)
+                user.set('phone', msg.text).save()
               })
-          })
+            }).then(replyId => bot.removeReplyListener(replyId))
+      })
   } catch (error) {
     console.error(error)
   }
