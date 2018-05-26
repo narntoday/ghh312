@@ -14,29 +14,38 @@ module.exports = async (id) => {
       }
     }
 
+
+    // First question
     bot.sendMessage(id, `Как Ваше имя?`, replyMarkup)
       .then(async msg => {
         const user = await Form.findOne({id: id})
 
-        return bot.onReplyToMessage(id, msg.message_id, msg => {
-          console.log(msg)
+        const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
           user.set('name', msg.text).save()
-        }).then(replyId => bot.removeReplyListener(replyId))
-            .then(() => bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup))
+        })
+
+        bot.removeReplyListener(replyId)
+      })
+
+        //Second question
+        .then(() => {
+          bot.sendMessage(id, `Укажите адрес доставки`, replyMarkup)
             .then(msg => {
-              return bot.onReplyToMessage(id, msg.message_id, msg => {
-                console.log(msg)
+              const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
                 user.set('address', msg.text).save()
               })
-            }).then(replyId => bot.removeReplyListener(replyId))
-            .then(() => bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup))
+              bot.removeReplyListener(replyId)
+            })
+        })
+
+        // THird question
+          bot.sendMessage(id, `Оставьте контактный номер телефона`, replyMarkup)
             .then(msg => {
-              return bot.onReplyToMessage(id, msg.message_id, msg => {
-                console.log(msg)
+              const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
                 user.set('phone', msg.text).save()
               })
-            }).then(replyId => bot.removeReplyListener(replyId))
-      })
+              bot.removeReplyListener(replyId)
+            })
   } catch (error) {
     console.error(error)
   }
