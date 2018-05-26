@@ -388,8 +388,9 @@ bot.on('callback_query', msg => {
           Form.findOne({id: user.userId})
             .then(data => {
               console.log(data)
-              //data = {}
-             // data.save()
+              data.id(data._id).remove()
+              data.save()
+              console.log(data)
             })
             .then(() => OrderController(msg.message.chat.id))
           break;

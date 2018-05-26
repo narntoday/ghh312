@@ -1,6 +1,7 @@
 const bot = require('../index')
 const Form = require('../model/order.model')
 const User = require('../model/user.model')
+const CartController = require('./controller/cart')
 
 module.exports = async (id) => {
   try {
@@ -47,11 +48,15 @@ module.exports = async (id) => {
                     const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
                       user.set('phone', msg.text).save()
                       bot.removeReplyListener(replyId)
-                      User.findOne({userId: user.id}).then(result => {
-                        const orderDetails = result.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
-                        const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
-                        return bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`)
-                      })
+                      User.findOne({userId: user.id})
+                        .then(result => {
+                          const orderDetails = result.cart.slice(1).map(item => `<b>${item.title}</b>`).join('\n')
+                          const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
+                          return bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {
+                            parse_mode: 'HTML'
+                          })
+                        })
+                          .then(() => CartController.clearCart(user))
                     })
                   })
               })
