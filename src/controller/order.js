@@ -2,8 +2,33 @@ const bot = require('../index');
 const helper = require('../helper');
 const Form = require('../model/order.model');
 
-module.exports = function (id) {
-  return bot.sendMessage(id, `Укажите адрес доставки`)
+module.exports = async (id) => {
+  try {
+    const user = await Form.findOne({id: id})
+    if (!user) {
+      new Form({id: id}).save()
+    }
+    const replyMarkup = {
+      reply_markup: {
+        force_reply: true
+      }
+    }
+
+    bot.sendMessage(id, `Как Ваше имя?`, replyMarkup)
+      .then(msg => {
+        const replyId = bot.onReplyToMessage(id, msg.message_id, async msg => {
+          const user = await Form.findOne({id: id})
+          await user.set('name', msg.text).save()
+        })
+        bot.removeReplyListener(replyId)
+      })
+  } catch (error) {
+    console.error(error)
+  }
+
+
+
+  //return bot.sendMessage(id, `Укажите адрес доставки`)
   // Form.findOne({chat: id})
   //   .then(us => {
   //
@@ -21,19 +46,7 @@ module.exports = function (id) {
   //       force_reply: true
   //     }
   //   })
-  //   .then(msg => {
-  //     const replyId = bot.onReplyToMessage(id, msg.message_id, msg => {
   //
-  //       //Add user's name to database
-  //       Form.findOne({chat: id}).then((f) => {
-  //
-  //         if (!f.name) {
-  //           f.set("name", msg.text).save()
-  //         }
-  //
-  //       });
-  //
-  //       bot.removeReplyListener(replyId);
   //
   //       ///////// Second question
   //

@@ -138,8 +138,6 @@ bot.on('message', msg => {
       case kb.home.gifts:
         MainController.sendCallback(msg, 'gifts');
         break;
-      case kb.home.contacts:
-        return bot.sendMessage(id, helper.contacts);
       case kb.home.cart:
         CartController.showCart(user);
         break
