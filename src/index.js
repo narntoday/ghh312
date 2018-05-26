@@ -386,12 +386,8 @@ bot.on('callback_query', msg => {
         // use new data for order
         case 'use_new_data':
           Form.findOne({id: user.userId})
-            .then(data => {
-              console.log(data)
-              data.id(data._id).remove()
-              data.save()
-              console.log(data)
-            })
+            .remove()
+            .save()
             .then(() => OrderController(msg.message.chat.id))
           break;
       }
