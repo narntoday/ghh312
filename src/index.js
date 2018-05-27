@@ -361,19 +361,21 @@ bot.on('callback_query', msg => {
 
         // process the order
         case 'order':
-          OrderController(msg.message.chat.id);
+          OrderController.processOrder(msg.message.chat.id);
           break;
 
         // use new data for order
         case 'use_new_data':
           Form.findOneAndRemove({id: user.userId})
             .then(form => form.save())
-            .then(() => OrderController(msg.message.chat.id))
+            .then(() => OrderController.processOrder(msg.message.chat.id))
           break;
 
         // use existing data for order
         case 'use_exist_data':
           //TODO send a message to user 'Your order received' and a message to manager
+          Form.findOne({id: user.userId})
+            .then(user => OrderController.useExistingData(user))
           break;
       }
 
