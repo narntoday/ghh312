@@ -51,7 +51,7 @@ module.exports = {
                         bot.removeReplyListener(replyId)
 
                         // Send a confirmation to user and a message with order details to manager
-                        this.sendConfirmation(user)
+                        this.sendConfirmation(user.id)
                       })
                     })
                 })
@@ -67,8 +67,9 @@ module.exports = {
       const user = await User.findOne({userId: id})
       const order = await Form.findOne({id: id})
       const orderDetails = user.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
+      const totalPrice = CartController.getTotalPrice(user)
       const userDetails = `<b>Имя:</b> ${order.name}\n<b>Адрес доставки:</b> ${order.address}\n<b>Телефон:</b> ${order.phone}`
-      bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
+      bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}<em>Сумма заказа ${totalPrice}</em>\n\n${userDetails}`, {parse_mode: 'HTML'})
         .then(() => bot.sendMessage(user.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.'))
         .then(() => CartController.clearCart(user))
     } catch (error) {
