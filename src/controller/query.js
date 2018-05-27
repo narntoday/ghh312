@@ -120,7 +120,7 @@ module.exports = {
       return bot.sendMessage(user.userId, `По Вашему запросу ничего не найдено. Выберите другие критерии`)
     }
 
-    if ((limit * (page - 1)) <= count) {
+    if ((limit * (page - 1)) < count) {
       switch (cb_data) {
         case 'b_low':
         case 'c_low':
@@ -199,9 +199,105 @@ module.exports = {
         })
     }).catch(err => console.log(err))
   },
-  findByReason (user, query, cb_data) {
-    switch (cb_data) {
+  async findByReason (user, cb_data) {
+    let query = cb_data.substr(0,1) === 'b' ? 'bouquets' : 'compose',
+        page = user.pagesReason[query],
+        count, result
 
+    switch (cb_data) {
+      case 'b_birthday':
+      case 'c_birthday':
+        count = await Flower.count({category: query, reason: 'birthday'})
+        break
+      case 'b_jubilee':
+      case 'c_jubilee':
+        count = await Flower.count({category: query, reason: 'jubilee'})
+        break
+      case 'b_wedding':
+      case 'c_wedding':
+        count = await Flower.count({category: query, reason: 'wedding'})
+        break
+      case 'b_love':
+      case 'c_love':
+        count = await Flower.count({category: query, reason: 'love'})
+        break
     }
+
+    if (count === 0) {
+      return bot.sendMessage(user.userId, `По Вашему запросу ничего не найдено. Выберите другие критерии`)
+    }
+
+    if ((limit * (page - 1)) < count) {
+      switch (cb_data) {
+        case 'b_birthday':
+        case 'c_birthday':
+          result = await Flower.find({category: query, reason: 'birthday'}).limit(limit).skip(limit*(page-1))
+          break;
+        case 'b_jubilee':
+        case 'c_jubilee':
+          count = await Flower.find({category: query, reason: 'jubilee'}).limit(limit).skip(limit*(page-1))
+          break
+        case 'b_wedding':
+        case 'c_wedding':
+          count = await Flower.find({category: query, reason: 'wedding'}).limit(limit).skip(limit*(page-1))
+          break
+        case 'b_love':
+        case 'c_love':
+          count = await Flower.find({category: query, reason: 'love'}).limit(limit).skip(limit*(page-1))
+          break
+      }
+    } else {
+      return bot.sendMessage(user.userId, `В данной категории элементов больше нет ☹️\nВыберите другую категорию или вернитесь назад`, {
+        reply_markup: {
+          inline_keyboard: [
+            [{text: '️️⬅️ Предыдущая', callback_data: `lessReason ${cb_data}`}],
+            [{text: '️️🚀 В начало', callback_data: `startReason ${cb_data}`}]
+          ]
+        }
+      })
+    }
+
+    const pageTotal = Math.ceil(count/limit);
+    const promises = result.map(flower => {
+      return bot.sendPhoto(user.userId, flower.image, {
+        caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
+        parse_mode: 'HTML',
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {text: `➖`, callback_data: `delete /f${flower.uid}`},
+              {text: '🛒️ Корзина', callback_data: 'cart'},
+              {text: `➕`, callback_data: `add /f${flower.uid}`}
+            ],
+            [{text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}]
+          ]
+        }
+      })
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        let inlineKeyboard = [];
+        if (page > 1 && page !== pageTotal) {
+          inlineKeyboard = [
+            [{text: '️️⬅️ Предыдущая', callback_data: `lessReason ${cb_data}`}],
+            [{text: 'Следующая ➡', callback_data: `moreReason ${cb_data}`}]
+          ]
+        } else if (page === 1) {
+          inlineKeyboard = [
+            [{text: 'Следующая ➡️️', callback_data: `moreReason ${cb_data}`}]
+          ]
+        } else if (page === pageTotal) {
+          inlineKeyboard = [
+            [{text: '️️⬅️ Предыдущая', callback_data: `lessReason ${cb_data}`}],
+            [{text: '️️🚀 В начало', callback_data: `startReason ${cb_data}`}]
+          ]
+        }
+        return bot.sendMessage(user.userId, `Показано ${(limit*page) >= count ? count : (limit*page)} элементов из ${count}\nСтраница ${page} из ${pageTotal}`, {
+          reply_markup: {
+            inline_keyboard: inlineKeyboard
+          }
+        })
+    }).catch(err => console.log(err))
   }
 };

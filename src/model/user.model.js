@@ -34,6 +34,7 @@ const UserSchema = new Schema({
   },
   pages: pagesSchema,
   pagesPrice: pagesSchema,
+  pagesReason: pagesSchema,
   cart: [cartSchema]
 });
 
