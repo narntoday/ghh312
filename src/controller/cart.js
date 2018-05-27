@@ -1,7 +1,6 @@
-const bot = require('../index');
-const Flower = require('../model/flower.model');
-const globals = require('../globals');
-const rub = globals.rub;
+const bot = require('../index')
+const Flower = require('../model/flower.model')
+const rub = require('../globals').rub
 
 module.exports = {
   async addToCart (item, user) {
@@ -92,4 +91,4 @@ module.exports = {
     user.cart = {};
     user.save()
   }
-};
+}

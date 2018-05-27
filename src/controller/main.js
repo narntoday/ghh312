@@ -1,8 +1,7 @@
 const bot = require('../index');
 const helper = require('../helper');
 const kb = require ('../keyboard-buttons');
-const globals = require('../globals');
-const rub = globals.rub;
+const rub = require('../globals').rub
 
 module.exports = {
   sendCallback (msg, item) {

@@ -1,8 +1,7 @@
-const bot = require('../index');
-const Flower = require('../model/flower.model');
-const globals = require('../globals');
-const rub = globals.rub;
-const limit = globals.limit;
+const bot = require('../index')
+const Flower = require('../model/flower.model')
+const rub = require('../globals').rub
+const limit = require('../globals').limit
 
 module.exports = {
   findFlower(query, userId) {
