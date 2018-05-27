@@ -339,13 +339,53 @@ bot.on('callback_query', msg => {
 
         // go to next reason page
         case 'moreReason b_birthday':
-        case 'moreReason c_birthday':
         case 'moreReason b_jubilee':
-        case 'moreReason c_jubilee':
         case 'moreReason b_wedding':
-        case 'moreReason c_wedding':
         case 'moreReason b_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+            .then(() => PageController.changePageReason(user, 'bouquets', 'add', msg.data))
+          break;
+
+        case 'moreReason c_birthday':
+        case 'moreReason c_jubilee':
+        case 'moreReason c_wedding':
         case 'moreReason c_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+            .then(() => PageController.changePageReason(user, 'compose', 'add', msg.data))
+          break;
+
+          // go to previous reason page
+        case 'lessReason b_birthday':
+        case 'lessReason b_jubilee':
+        case 'lessReason b_wedding':
+        case 'lessReason b_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+            .then(() => PageController.changePageReason(user, 'bouquets', 'remove', msg.data))
+          break;
+
+        case 'lessReason c_birthday':
+        case 'lessReason c_jubilee':
+        case 'lessReason c_wedding':
+        case 'lessReason c_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+            .then(() => PageController.changePageReason(user, 'compose', 'remove', msg.data))
+          break;
+
+        // reset reason page
+        case 'startReason b_birthday':
+        case 'startReason b_jubilee':
+        case 'startReason b_wedding':
+        case 'startReason b_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => PageController.changePageReason(user, 'bouquets', 'reset', msg.data))
+          break;
+
+        case 'startReason c_birthday':
+        case 'startReason c_jubilee':
+        case 'startReason c_wedding':
+        case 'startReason c_love':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => PageController.changePageReason(user, 'compose', 'reset', msg.data))
           break;
 
         // show cart
