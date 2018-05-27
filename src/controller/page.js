@@ -34,5 +34,24 @@ module.exports = {
         .then(() => queryController.findByPrice(user, query, cb_data.slice(10)))
         .catch((err) => console.log(err))
     }
+  },
+  changePageReason(user, query, action, cb_data) {
+    let pageNumber = user.pagesReason[query],
+        params = {}
+
+    if (action === 'reset') {
+      console.log(cb_data.slice(13))
+      user.pagesReason[query] = 1
+      user.save()
+        .then(() => queryController.findByReason(user, cb_data.slice(13)))
+        .catch((err) => console.log(err))
+    } else {
+      params[query] = action === 'add' ? (pageNumber + 1) : (pageNumber - 1)
+      cb_data.slice(12)
+      user.pagesReason.set(params)
+      user.save()
+        .then(() => queryController.findByReason(user, query, cb_data.slice(12)))
+        .catch((err) => console.log(err))
+    }
   }
 };

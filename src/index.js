@@ -239,7 +239,7 @@ bot.on('callback_query', msg => {
             })
           break;
 
-        // go to next page of price
+        // go to next price page
         case 'morePrice b_low':
         case 'morePrice b_midlow':
         case 'morePrice b_midhigh':
@@ -264,7 +264,7 @@ bot.on('callback_query', msg => {
             .then(() => PageController.changePagePrice(user, 'gifts', 'add', msg.data))
           break;
 
-        // go to prev page of price
+        // go to prev price page
         case 'lessPrice b_low':
         case 'lessPrice b_midlow':
         case 'lessPrice b_midhigh':
@@ -289,7 +289,7 @@ bot.on('callback_query', msg => {
             .then(() => PageController.changePagePrice(user, 'gifts', 'remove', msg.data))
           break;
 
-        // reset page
+        // reset price page
         case 'startPrice b_low':
         case 'startPrice b_midlow':
         case 'startPrice b_midhigh':
@@ -314,20 +314,6 @@ bot.on('callback_query', msg => {
             .then(() => PageController.changePagePrice(user, 'gifts', 'reset', msg.data))
           break;
 
-        // show cart
-        case 'cart':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => CartController.showCart(user))
-          break;
-
-        // clear cart:
-        case 'clear':
-          bot.answerCallbackQuery({
-            callback_query_id: msg.id,
-            text: 'Корзина очищена!'
-          }).then(() => CartController.clearCart(user))
-          break;
-
         // show reasons
         case 'b_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
@@ -349,6 +335,31 @@ bot.on('callback_query', msg => {
         case 'c_love':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => QueryController.findByReason(user, msg.data))
+          break;
+
+        // go to next reason page
+        case 'moreReason b_birthday':
+        case 'moreReason c_birthday':
+        case 'moreReason b_jubilee':
+        case 'moreReason c_jubilee':
+        case 'moreReason b_wedding':
+        case 'moreReason c_wedding':
+        case 'moreReason b_love':
+        case 'moreReason c_love':
+          break;
+
+        // show cart
+        case 'cart':
+          bot.answerCallbackQuery({callback_query_id: msg.id})
+              .then(() => CartController.showCart(user))
+          break;
+
+        // clear cart:
+        case 'clear':
+          bot.answerCallbackQuery({
+            callback_query_id: msg.id,
+            text: 'Корзина очищена!'
+          }).then(() => CartController.clearCart(user))
           break;
 
         // process the order
