@@ -203,6 +203,7 @@ module.exports = {
     let query = cb_data.substr(0,1) === 'b' ? 'bouquets' : 'compose',
         page = user.pagesReason[query],
         count, result
+    console.log(user)
 
     switch (cb_data) {
       case 'b_birthday':
