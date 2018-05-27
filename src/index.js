@@ -122,6 +122,7 @@ bot.on('message', msg => {
         userId: id,
         pages: {},
         pagesPrice: {},
+        pagesReason: {},
         cart: {}
       }).save()
         .then(() => bot.sendMessage(447069712, `New user @${username}`))

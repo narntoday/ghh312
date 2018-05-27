@@ -34,8 +34,7 @@ module.exports = {
     return bot.sendMessage(id, text, { reply_markup: keyboard });
   },
   showReasons (id, query) {
-    let item, keyboard;
-
+    let item, keyboard
     item = query === 'bouquet' ? 'b' : 'c';
     keyboard = [
       [
@@ -48,6 +47,7 @@ module.exports = {
 
       ]
     ]
+    console.log(keyboard)
 
     return bot.sendMessage(id, `Выберите повод, на который хотите подарить ${item === 'b' ? 'букет' : 'композицию'}:`, {
       reply_markup: { inline_keyboard: keyboard }
