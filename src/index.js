@@ -366,16 +366,20 @@ bot.on('callback_query', msg => {
 
         // use new data for order
         case 'use_new_data':
-          Form.findOneAndRemove({id: user.userId})
-            .then(form => form.save())
-            .then(() => OrderController.processOrder(msg.message.chat.id))
+          bot.answerCallbackQuery({
+            callback_query_id: msg.id,
+            text: 'Введите новые данные'
+          }).then(() => Form.findOneAndRemove({id: user.userId}))
+                .then(form => form.save())
+                  .then(() => OrderController.processOrder(msg.message.chat.id))
           break;
 
         // use existing data for order
         case 'use_exist_data':
-          //TODO send a message to user 'Your order received' and a message to manager
-          Form.findOne({id: user.userId})
-            .then(() => OrderController.useExistingData(msg.message.chat.id))
+          bot.answerCallbackQuery({
+            callback_query_id: msg.id,
+            text: 'Использованы ранее введёные данные'
+          }).then(() => OrderController.sendConfirmation(msg.message.chat.id))
           break;
       }
 
@@ -391,7 +395,6 @@ bot.on('callback_query', msg => {
         callback_query_id: msg.id,
         text: `Добавлено в корзину`
       }).then(() => CartController.addToCart(item, user))
-        .catch((err) => console.log(err));
     }
 
     // remove item from cart
@@ -403,6 +406,5 @@ bot.on('callback_query', msg => {
       }).then(() => CartController.removeFromCart(item, user))
         .catch((err) => console.log(err));
     }
-
   }).catch(err => console.log(err));
 });
