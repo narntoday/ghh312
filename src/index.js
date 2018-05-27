@@ -327,7 +327,7 @@ bot.on('callback_query', msg => {
           }).then(() => CartController.clearCart(user))
           break;
 
-        // show items by reasons
+        // show reasons
         case 'b_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => MainController.showReasons(id, 'bouquet'))
@@ -337,26 +337,17 @@ bot.on('callback_query', msg => {
             .then(() => MainController.showReasons(id, 'compose'))
           break;
 
-        // TODO let user choose by price or see all before sending items by reasons
+        // show items by reasons
         case 'b_birthday':
         case 'c_birthday':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => QueryController.findByReason(id, 'birthday', msg.data))
-          break;
         case 'b_jubilee':
         case 'c_jubilee':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => QueryController.findByReason(id, 'jubilee', msg.data))
-          break;
         case 'b_wedding':
         case 'c_wedding':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => QueryController.findByReason(id, 'wedding', msg.data))
-          break;
         case 'b_love':
         case 'c_love':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => QueryController.findByReason(id, 'love', msg.data))
+            .then(() => QueryController.findByReason(id, msg.data))
           break;
 
         // process the order
