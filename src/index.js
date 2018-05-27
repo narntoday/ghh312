@@ -375,7 +375,7 @@ bot.on('callback_query', msg => {
         case 'use_exist_data':
           //TODO send a message to user 'Your order received' and a message to manager
           Form.findOne({id: user.userId})
-            .then(user => OrderController.useExistingData(user))
+            .then(() => OrderController.useExistingData(msg.message.chat.id))
           break;
       }
 

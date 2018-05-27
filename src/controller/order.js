@@ -51,17 +51,15 @@ module.exports = {
                               bot.removeReplyListener(replyId)
 
                               // Send an order to manager
-                              User.findOne({userId: user.id})
-                                .then(existingUser => {
-                                  const orderDetails = existingUser.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
-                                  const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
-                                  bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
-                                    .then(() => {
-                                      console.log(existingUser)
-                                      bot.sendMessage(existingUser.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.')
-                                        .then(() => CartController.clearCart(existingUser))
-                                    })
-                                })
+                              this.useExistingData(user)
+                              // User.findOne({userId: user.id})
+                              //   .then(existingUser => {
+                              //     const orderDetails = existingUser.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
+                              //     const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
+                              //     bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
+                              //       .then(() => bot.sendMessage(existingUser.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.'))
+                              //         .then(() => CartController.clearCart(existingUser))
+                              //   })
                             })
                           })
                     })
@@ -72,15 +70,15 @@ module.exports = {
       console.error(error)
     }
   },
-  async useExistingData (user) {
+  async useExistingData (id) {
     try {
-      //const order = await Form.findOne({id: user.id})
-      const existingUser = await User.findOne({userId: user.id})
-      bot.sendMessage(existingUser, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.')
-      const orderDetails = existingUser.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
-      const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
+      const user = await User.findOne({userId: id})
+      const order = await Form.findOne({id: id})
+      const orderDetails = user.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
+      const userDetails = `<b>Имя:</b> ${order.name}\n<b>Адрес доставки:</b> ${order.address}\n<b>Телефон:</b> ${order.phone}`
       bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
-        .then(() => CartController.clearCart(existingUser))
+        .then(() => bot.sendMessage(user.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.'))
+        .then(() => CartController.clearCart(user))
     } catch (error) {
       console.error(error)
     }
