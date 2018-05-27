@@ -57,7 +57,8 @@ module.exports = {
                                   const userDetails = `<b>Имя:</b> ${user.name}\n<b>Адрес доставки:</b> ${user.address}\n<b>Телефон:</b> ${user.phone}`
                                   bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}\n\n${userDetails}`, {parse_mode: 'HTML'})
                                     .then(() => {
-                                      bot.sendMessage(existingUser, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.')
+                                      console.log(existingUser)
+                                      bot.sendMessage(existingUser.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.')
                                         .then(() => CartController.clearCart(existingUser))
                                     })
                                 })
