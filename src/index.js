@@ -333,7 +333,7 @@ bot.on('callback_query', msg => {
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => MainController.showReasons(id, 'bouquet'))
           break;
-        case 'с_reasons':
+        case 'c_reasons':
           bot.answerCallbackQuery({callback_query_id: msg.id})
             .then(() => MainController.showReasons(id, 'compose'))
           break;
@@ -348,7 +348,7 @@ bot.on('callback_query', msg => {
         case 'b_love':
         case 'c_love':
           bot.answerCallbackQuery({callback_query_id: msg.id})
-            .then(() => QueryController.findByReason(id, msg.data))
+            .then(() => QueryController.findByReason(user, msg.data))
           break;
 
         // process the order
