@@ -236,15 +236,15 @@ module.exports = {
           break;
         case 'b_jubilee':
         case 'c_jubilee':
-          count = await Flower.find({category: query, reason: 'jubilee'}).limit(limit).skip(limit*(page-1))
+          result = await Flower.find({category: query, reason: 'jubilee'}).limit(limit).skip(limit*(page-1))
           break
         case 'b_wedding':
         case 'c_wedding':
-          count = await Flower.find({category: query, reason: 'wedding'}).limit(limit).skip(limit*(page-1))
+          result = await Flower.find({category: query, reason: 'wedding'}).limit(limit).skip(limit*(page-1))
           break
         case 'b_love':
         case 'c_love':
-          count = await Flower.find({category: query, reason: 'love'}).limit(limit).skip(limit*(page-1))
+          result = await Flower.find({category: query, reason: 'love'}).limit(limit).skip(limit*(page-1))
           break
       }
     } else {
