@@ -367,10 +367,7 @@ bot.on('callback_query', msg => {
         // use new data for order
         case 'use_new_data':
           Form.findOneAndRemove({id: user.userId})
-              .then(form => {
-                console.log(form)
-                form.save()
-              })
+            .then(form => form.save())
             .then(() => OrderController(msg.message.chat.id))
           break;
 

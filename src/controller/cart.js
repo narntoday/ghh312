@@ -56,7 +56,7 @@ module.exports = {
     if (user.cart.length > 1) {
       bot.sendMessage(user.userId, `Ваш заказ`)
         .then(() => {
-          // you should return every promise in promise.all
+          // every promise should be returned in promise.all
           Promise.all(user.cart.slice(1).map(flower => {
             return bot.sendPhoto(user.userId, flower.image, {
               caption: `<b>${flower.title}</b> - <em>${flower.quantity} шт.</em> \n<b>Цена ${flower.price} ${rub}</b>`,
