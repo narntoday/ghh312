@@ -1,5 +1,5 @@
-const mongoose = require ('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require ('mongoose')
+const Schema = mongoose.Schema
 
 const pagesSchema = new Schema({
   bouquets: {
@@ -14,7 +14,7 @@ const pagesSchema = new Schema({
     type: Number,
     default: 1
   }
-});
+})
 
 const cartSchema = new Schema({
   uid: String,
@@ -25,7 +25,7 @@ const cartSchema = new Schema({
     type: Number,
     default: 1
   }
-});
+})
 
 const UserSchema = new Schema({
   userId: {
@@ -36,6 +36,6 @@ const UserSchema = new Schema({
   pagesPrice: pagesSchema,
   pagesReason: pagesSchema,
   cart: [cartSchema]
-});
+})
 
-module.exports = User = mongoose.model('users', UserSchema);
+module.exports = User = mongoose.model('users', UserSchema)

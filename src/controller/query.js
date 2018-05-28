@@ -6,8 +6,8 @@ const limit = require('../globals').limit
 module.exports = {
   findFlower(query, userId) {
     Flower.findOne({uid: query}).then(f => {
-      const description = f.description.split(', ').join('\n');
-      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n<em>Описание:</em>\n${description}`;
+      const description = f.description.split(', ').join('\n')
+      const caption = `<b>${f.title}</b>\n<b>Цена ${f.price} ${rub}</b>\n\n<em>Описание:</em>\n${description}`
       return bot.sendPhoto(userId, f.image, {
         caption: caption,
         parse_mode: 'HTML',
@@ -21,13 +21,13 @@ module.exports = {
           ]
         }
       })
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err))
   },
   findByQuery(user, query) {
-    let page = user.pages[query];
+    let page = user.pages[query]
 
     Flower.count({category: query}).then(number => {
-      const pageTotal = Math.ceil(number/limit);
+      const pageTotal = Math.ceil(number/limit)
 
       if ((limit * (page - 1)) < number) {
         Flower.find({category: query}).limit(limit).skip(limit * (page - 1)).then(result => {
@@ -40,20 +40,20 @@ module.exports = {
                 inline_keyboard: [
                   [
                     {text: `➖`, callback_data: `delete /f${flower.uid}`},
-                    {text: ' Корзина🛒️', callback_data: 'cart'},
+                    {text: 'Корзина', callback_data: 'cart'},
                     {text: `➕`, callback_data: `add /f${flower.uid}`}
                   ],
                   [
-                    {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
+                    {text: '🌷 Подробнее', callback_data: `/f${flower.uid}`}
                   ]
                 ]
               }
             })
-          });
+          })
 
           Promise.all(promises)
             .then(() => {
-              let inlineKeyboard = [];
+              let inlineKeyboard = []
               if (page > 1 && page !== pageTotal) {
                 inlineKeyboard = [
                   [{text: '️️⬅️ Предыдущая', callback_data: `less ${query}`}],
@@ -91,29 +91,29 @@ module.exports = {
   },
   async findByPrice (user, query, cb_data) {
     let count, result,
-        page = user.pagesPrice[query];
+        page = user.pagesPrice[query]
 
     switch (cb_data) {
       case 'b_low':
       case 'c_low':
       case 'g_low':
-        count = await Flower.count({category: query}).where('price').lte(2000);
-        break;
+        count = await Flower.count({category: query}).where('price').lte(2000)
+        break
       case 'b_midlow':
       case 'c_midlow':
       case 'g_midlow':
-        count = await Flower.count({category: query}).where('price').gt(2000).lte(3500);
-        break;
+        count = await Flower.count({category: query}).where('price').gt(2000).lte(3500)
+        break
       case 'b_midhigh':
       case 'c_midhigh':
       case 'g_midhigh':
-        count = await Flower.count({category: query}).where('price').gte(3500).lte(5000);
-        break;
+        count = await Flower.count({category: query}).where('price').gte(3500).lte(5000)
+        break
       case 'b_high':
       case 'c_high':
       case 'g_high':
-        count = await Flower.count({category: query}).where('price').gt(5000);
-        break;
+        count = await Flower.count({category: query}).where('price').gt(5000)
+        break
     }
 
     if (count === 0) {
@@ -125,23 +125,23 @@ module.exports = {
         case 'b_low':
         case 'c_low':
         case 'g_low':
-          result = await Flower.find({category: query}).where('price').lte(2000).limit(limit).skip(limit*(page-1));
-          break;
+          result = await Flower.find({category: query}).where('price').lte(2000).limit(limit).skip(limit*(page-1))
+          break
         case 'b_midlow':
         case 'c_midlow':
         case 'g_midlow':
-          result = await Flower.find({category: query}).where('price').gt(2000).lte(3500).limit(limit).skip(limit*(page-1));
-          break;
+          result = await Flower.find({category: query}).where('price').gt(2000).lte(3500).limit(limit).skip(limit*(page-1))
+          break
         case 'b_midhigh':
         case 'c_midhigh':
         case 'g_midhigh':
-          result = await Flower.find({category: query}).where('price').gte(3500).lte(5000).limit(limit).skip(limit*(page-1));
-          break;
+          result = await Flower.find({category: query}).where('price').gte(3500).lte(5000).limit(limit).skip(limit*(page-1))
+          break
         case 'b_high':
         case 'c_high':
         case 'g_high':
-          result = await Flower.find({category: query}).where('price').gt(5000).limit(limit).skip(limit*(page-1));
-          break;
+          result = await Flower.find({category: query}).where('price').gt(5000).limit(limit).skip(limit*(page-1))
+          break
       }
     } else {
       return bot.sendMessage(user.userId, `В данной категории элементов больше нет ☹️\nВыберите другую категорию или вернитесь назад`, {
@@ -154,7 +154,7 @@ module.exports = {
       })
     }
 
-    const pageTotal = Math.ceil(count/limit);
+    const pageTotal = Math.ceil(count/limit)
     const promises = result.map(flower => {
       return bot.sendPhoto(user.userId, flower.image, {
         caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
@@ -163,20 +163,20 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: `delete /f${flower.uid}`},
-              {text: '🛒️ Корзина', callback_data: 'cart'},
+              {text: 'Корзина', callback_data: 'cart'},
               {text: `➕`, callback_data: `add /f${flower.uid}`}
             ],
             [
-              {text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}
+              {text: '🌷 Подробнее', callback_data: `/f${flower.uid}`}
             ]
           ]
         }
       })
-    });
+    })
 
     Promise.all(promises)
       .then(() => {
-        let inlineKeyboard = [];
+        let inlineKeyboard = []
         if (page > 1 && page !== pageTotal) {
           inlineKeyboard = [
             [{text: '️️⬅️ Предыдущая', callback_data: `lessPrice ${cb_data}`}],
@@ -232,7 +232,7 @@ module.exports = {
         case 'b_birthday':
         case 'c_birthday':
           result = await Flower.find({category: query, reason: 'birthday'}).limit(limit).skip(limit*(page-1))
-          break;
+          break
         case 'b_jubilee':
         case 'c_jubilee':
           result = await Flower.find({category: query, reason: 'jubilee'}).limit(limit).skip(limit*(page-1))
@@ -257,7 +257,7 @@ module.exports = {
       })
     }
 
-    const pageTotal = Math.ceil(count/limit);
+    const pageTotal = Math.ceil(count/limit)
     const promises = result.map(flower => {
       return bot.sendPhoto(user.userId, flower.image, {
         caption: `<b>${flower.title}</b>\n<b>Цена ${flower.price} ${rub}</b>`,
@@ -266,18 +266,18 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: `delete /f${flower.uid}`},
-              {text: '🛒️ Корзина', callback_data: 'cart'},
+              {text: 'Корзина', callback_data: 'cart'},
               {text: `➕`, callback_data: `add /f${flower.uid}`}
             ],
-            [{text: '🌹 Подробнее', callback_data: `/f${flower.uid}`}]
+            [{text: '🌷 Подробнее', callback_data: `/f${flower.uid}`}]
           ]
         }
       })
-    });
+    })
 
     Promise.all(promises)
       .then(() => {
-        let inlineKeyboard = [];
+        let inlineKeyboard = []
         if (page > 1 && page !== pageTotal) {
           inlineKeyboard = [
             [{text: '️️⬅️ Предыдущая', callback_data: `lessReason ${cb_data}`}],
@@ -300,4 +300,4 @@ module.exports = {
         })
     }).catch(err => console.log(err))
   }
-};
+}

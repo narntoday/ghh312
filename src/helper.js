@@ -17,8 +17,5 @@ module.exports = {
   },
   getChatId(msg) {
     return msg.chat.id
-  },
-  html(query) {
-    return `Новый заказ!\n<b>Имя:</b> ${query.name}\n<b>Адрес:</b> ${query.address}\n<b>Телефон:</b> ${query.phone}`
   }
-};
+}

@@ -5,28 +5,28 @@ const rub = require('../globals').rub
 module.exports = {
   async addToCart (item, user) {
     try {
-      const flower = await Flower.findOne({uid: item});
+      const flower = await Flower.findOne({uid: item})
       if (user.cart.length === 1) {
         await user.cart.push({
           uid: item,
           title: flower.title,
           image: flower.image,
           price: flower.price
-        });
-        user.save();
+        })
+        user.save()
       } else if (user.cart.length > 1) {
-        const found = user.cart.slice(1).some(el => el.uid === item);
+        const found = user.cart.slice(1).some(el => el.uid === item)
         if (!found) {
           user.cart.push({
             uid: item,
             title: flower.title,
             image: flower.image,
             price: flower.price
-          });
+          })
           user.save()
         } else {
-          const subDoc = user.cart.find(el => el.uid === item);
-          user.cart.id(subDoc._id).set({quantity: subDoc.quantity + 1});
+          const subDoc = user.cart.find(el => el.uid === item)
+          user.cart.id(subDoc._id).set({quantity: subDoc.quantity + 1})
           user.save()
         }
       }
@@ -36,14 +36,14 @@ module.exports = {
   },
   removeFromCart (item, user) {
     try {
-      const found = user.cart.slice(1).some(el => el.uid === item);
+      const found = user.cart.slice(1).some(el => el.uid === item)
       if (found) {
-        const subDoc = user.cart.find(el => el.uid === item);
+        const subDoc = user.cart.find(el => el.uid === item)
         if (subDoc.quantity === 1) {
-          user.cart.id(subDoc._id).remove();
+          user.cart.id(subDoc._id).remove()
           user.save()
         } else {
-          user.cart.id(subDoc._id).set({quantity: subDoc.quantity - 1});
+          user.cart.id(subDoc._id).set({quantity: subDoc.quantity - 1})
           user.save()
         }
       }
@@ -67,7 +67,7 @@ module.exports = {
               }
             })
           })).then(() => {
-            const price = this.getTotalPrice(user);
+            const price = this.getTotalPrice(user)
             return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
               parse_mode: 'HTML',
               reply_markup: {
@@ -80,15 +80,15 @@ module.exports = {
           }).catch(err => console.log(err))
         }).catch(err => console.log(err))
     } else {
-      return bot.sendMessage(user.userId, `Корзина пуста`);
+      return bot.sendMessage(user.userId, `Корзина пуста`)
     }
   },
   getTotalPrice (user) {
-    const prices = user.cart.slice(1).map(item => item.price);
+    const prices = user.cart.slice(1).map(item => item.price)
     return prices.reduce((a, b) => a + b)
   },
   clearCart (user) {
-    user.cart = {};
+    user.cart = {}
     user.save()
   }
 }

@@ -1,41 +1,41 @@
-const bot = require('../index');
-const helper = require('../helper');
-const kb = require ('../keyboard-buttons');
+const bot = require('../index')
+const helper = require('../helper')
+const kb = require ('../keyboard-buttons')
 const rub = require('../globals').rub
 
 module.exports = {
   sendCallback (msg, item) {
-    const id = helper.getChatId(msg);
-    let text, keyboard;
+    const id = helper.getChatId(msg)
+    let text, keyboard
 
     switch (item) {
       case 'bouquets':
       case 'compose':
-        text = `Хотите заказать ${item === 'compose' ? 'композицию' : 'букет'}?\nВы можете выбрать повод, на который Вы желаете ${item === 'compose' ? 'её' : 'его'} подарить , отсортировать ${item === 'compose' ? 'композиции' : 'букеты'} по стоимости, или посмотреть весь ассортимент`;
+        text = `Хотите заказать ${item === 'compose' ? 'композицию' : 'букет'}?\nВы можете выбрать повод, на который Вы желаете ${item === 'compose' ? 'её' : 'его'} подарить , отсортировать ${item === 'compose' ? 'композиции' : 'букеты'} по стоимости, или посмотреть весь ассортимент`
         keyboard = {
           inline_keyboard: [
             [{text: `🎉 Выбрать повод`, callback_data: item === 'compose' ? 'c_reasons' : 'b_reasons'}],
-            [{text: `💰 Выбрать цену`, callback_data: item === 'compose' ? 'c_price' : 'b_price'}],
-            [{text: `👀 Смотреть все`, callback_data: item === 'compose' ? 'c_all' : 'b_all'}]
+            [{text: `💲 Выбрать цену`, callback_data: item === 'compose' ? 'c_price' : 'b_price'}],
+            [{text: `🔍 Смотреть все`, callback_data: item === 'compose' ? 'c_all' : 'b_all'}]
           ]
-        };
-        break;
+        }
+        break
       case 'gifts':
-        text = `Хотите заказать подарок?\nВы можете уточнить желаемую стоимость, или посмотреть все подарки`;
+        text = `Хотите заказать подарок?\nВы можете уточнить желаемую стоимость, или посмотреть все подарки`
         keyboard = {
           inline_keyboard: [
-            [{text: `💰 Выбрать цену`, callback_data: 'g_price'}],
-            [{text: `👀 Смотреть все`, callback_data: 'g_all'}]
+            [{text: `💲 Выбрать цену`, callback_data: 'g_price'}],
+            [{text: `🔍 Смотреть все`, callback_data: 'g_all'}]
           ]
-        };
-        break;
+        }
+        break
     }
 
-    return bot.sendMessage(id, text, { reply_markup: keyboard });
+    return bot.sendMessage(id, text, { reply_markup: keyboard })
   },
   showReasons (id, query) {
     let item, keyboard
-    item = query === 'bouquet' ? 'b' : 'c';
+    item = query === 'bouquet' ? 'b' : 'c'
     keyboard = [
       [
         {text: kb.reasons.birthday, callback_data: `${item}_birthday`},
@@ -50,10 +50,10 @@ module.exports = {
 
     return bot.sendMessage(id, `Выберите повод, на который хотите подарить ${item === 'b' ? 'букет' : 'композицию'}:`, {
       reply_markup: { inline_keyboard: keyboard }
-    });
+    })
 },
   choosePrice (msg) {
-    let item = msg.data.substr(0,1);
+    let item = msg.data.substr(0,1)
     return bot.sendMessage(msg.message.chat.id, `Пожалуйста, уточните стоимость`, {
       reply_markup: {
         inline_keyboard: [
@@ -77,4 +77,4 @@ module.exports = {
       }
     })
   }
-};
+}

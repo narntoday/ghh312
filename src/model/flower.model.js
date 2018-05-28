@@ -1,5 +1,5 @@
-const mongoose = require ('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require ('mongoose')
+const Schema = mongoose.Schema
 
 const FlowerSchema = new Schema({
   uid: {
@@ -13,6 +13,6 @@ const FlowerSchema = new Schema({
   reason: String,
   link: String,
   description: String
-});
+})
 
-module.exports = Flower = mongoose.model('flowers', FlowerSchema);
+module.exports = Flower = mongoose.model('flowers', FlowerSchema)

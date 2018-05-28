@@ -1,4 +1,4 @@
-const kb = require ('./keyboard-buttons');
+const kb = require ('./keyboard-buttons')
 
 module.exports = {
   home: [
@@ -10,4 +10,4 @@ module.exports = {
     [kb.cart.clear],
     [kb.cart.order]
   ]
-};
+}
