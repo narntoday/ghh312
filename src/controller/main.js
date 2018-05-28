@@ -15,7 +15,7 @@ module.exports = {
         keyboard = {
           inline_keyboard: [
             [{text: `🎉 Выбрать повод`, callback_data: item === 'compose' ? 'c_reasons' : 'b_reasons'}],
-            [{text: `👛 💳 💰 Выбрать цену`, callback_data: item === 'compose' ? 'c_price' : 'b_price'}],
+            [{text: `💰 Выбрать цену`, callback_data: item === 'compose' ? 'c_price' : 'b_price'}],
             [{text: `🔍 Смотреть все`, callback_data: item === 'compose' ? 'c_all' : 'b_all'}]
           ]
         }
@@ -24,7 +24,7 @@ module.exports = {
         text = `Хотите заказать подарок?\nВы можете уточнить желаемую стоимость, или посмотреть все подарки`
         keyboard = {
           inline_keyboard: [
-            [{text: `💲 Выбрать цену`, callback_data: 'g_price'}],
+            [{text: `💰 Выбрать цену`, callback_data: 'g_price'}],
             [{text: `🔍 Смотреть все`, callback_data: 'g_all'}]
           ]
         }
