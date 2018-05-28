@@ -47,7 +47,6 @@ module.exports = {
 
       ]
     ]
-    console.log(keyboard)
 
     return bot.sendMessage(id, `Выберите повод, на который хотите подарить ${item === 'b' ? 'букет' : 'композицию'}:`, {
       reply_markup: { inline_keyboard: keyboard }

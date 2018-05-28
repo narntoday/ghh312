@@ -40,7 +40,6 @@ module.exports = {
         params = {}
 
     if (action === 'reset') {
-      console.log(cb_data.slice(12))
       user.pagesReason[query] = 1
       user.save()
         .then(() => queryController.findByReason(user, cb_data.slice(12)))

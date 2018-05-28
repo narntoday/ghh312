@@ -204,7 +204,6 @@ module.exports = {
         page = user.pagesReason[query],
         count, result
 
-
     switch (cb_data) {
       case 'b_birthday':
       case 'c_birthday':
