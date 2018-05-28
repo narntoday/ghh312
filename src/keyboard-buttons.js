@@ -13,6 +13,6 @@ module.exports = {
     birthday: '🎂 День Рождения',
     jubilee: '🎀 Юбилей',
     wedding: '💍 Свадьба',
-    love: '💕 💝 Любимой'
+    love: '💝 Любимой'
   }
 }

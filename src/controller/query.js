@@ -15,7 +15,7 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: `delete /f${f.uid}`},
-              {text: '🛒 Корзина', callback_data: 'cart'},
+              {text: '🛒', callback_data: 'cart'},
               {text: `➕`, callback_data: `add /f${f.uid}`}
             ]
           ]
@@ -40,7 +40,7 @@ module.exports = {
                 inline_keyboard: [
                   [
                     {text: `➖`, callback_data: `delete /f${flower.uid}`},
-                    {text: 'Корзина', callback_data: 'cart'},
+                    {text: '🛒️', callback_data: 'cart'},
                     {text: `➕`, callback_data: `add /f${flower.uid}`}
                   ],
                   [
@@ -163,7 +163,7 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: `delete /f${flower.uid}`},
-              {text: 'Корзина', callback_data: 'cart'},
+              {text: '🛒️', callback_data: 'cart'},
               {text: `➕`, callback_data: `add /f${flower.uid}`}
             ],
             [
@@ -266,7 +266,7 @@ module.exports = {
           inline_keyboard: [
             [
               {text: `➖`, callback_data: `delete /f${flower.uid}`},
-              {text: 'Корзина', callback_data: 'cart'},
+              {text: '🛒️', callback_data: 'cart'},
               {text: `➕`, callback_data: `add /f${flower.uid}`}
             ],
             [{text: '🌷 Подробнее', callback_data: `/f${flower.uid}`}]
