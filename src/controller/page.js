@@ -47,7 +47,7 @@ module.exports = {
         .catch((err) => console.log(err))
     } else {
       params[query] = action === 'add' ? (pageNumber + 1) : (pageNumber - 1)
-      cb_data.slice(12)
+      console.log(cb_data.slice(12))
       user.pagesReason.set(params)
       user.save()
         .then(() => queryController.findByReason(user, query, cb_data.slice(12)))
