@@ -59,7 +59,7 @@ module.exports = {
               let inlineKeyboard = []
               if (page > 1 && page !== pageTotal) {
                 inlineKeyboard = [
-                  [{text: '️️⬅️ Предыдущая', callback_data: `less ${query}`}],
+                  [{text: '️️⬅️  Предыдущая', callback_data: `less ${query}`}],
                   [{text: 'Следующая ➡', callback_data: `more ${query}`}]
                 ]
               } else if (page === 1) {
@@ -68,7 +68,7 @@ module.exports = {
                 ]
               } else if (page === pageTotal) {
                 inlineKeyboard = [
-                  [{text: '️️⬅️ Предыдущая', callback_data: `less ${query}`}],
+                  [{text: '️️⬅️  Предыдущая', callback_data: `less ${query}`}],
                   [{text: '️️🚀 В начало', callback_data: `start ${query}`}]
                 ]
               }

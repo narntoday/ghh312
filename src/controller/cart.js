@@ -90,8 +90,8 @@ module.exports = {
         quantity: item.quantity
       }
     })
-    prices.map(el => el.price * el.quantity)
-    return prices.reduce((a, b) => a + b)
+    prices.map(el => el.total = el.price * el.quantity)
+    return prices.reduce((a, b) => a.total + b.total)
   },
   clearCart (user) {
     user.cart = {}
