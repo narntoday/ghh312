@@ -231,11 +231,11 @@ bot.on('callback_query', msg => {
               queryPrice = 'gifts'
               break
           }
-          user.pagesPrice[query] = 1
+          user.pagesPrice[queryPrice] = 1
           user.save()
             .then(() => {
               bot.answerCallbackQuery({callback_query_id: msg.id})
-                .then(() => QueryController.findByPrice(user, query, msg.data))
+                .then(() => QueryController.findByPrice(user, queryPrice, msg.data))
             })
           break
 
