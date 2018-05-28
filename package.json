@@ -9,6 +9,10 @@
     "set_env": "export $(cat .env | xargs)"
   },
   "author": "Egor Kravchenko",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kravchenkoegor/flower-shop-telegram-bot.git"
+  },
   "license": "ISC",
   "dependencies": {
     "dotenv": "^5.0.0",
