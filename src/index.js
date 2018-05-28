@@ -219,16 +219,16 @@ bot.on('callback_query', msg => {
         case 'g_midlow':
         case 'g_midhigh':
         case 'g_high':
-          let query;
+          let queryPrice;
           switch (msg.data.substr(0,1)) {
             case 'b':
-              query = 'bouquets';
+              queryPrice = 'bouquets';
               break;
             case 'c':
-              query = 'compose';
+              queryPrice = 'compose';
               break;
             case 'g':
-              query = 'gifts';
+              queryPrice = 'gifts';
               break
           }
           user.pagesPrice[query] = 1;
@@ -333,7 +333,10 @@ bot.on('callback_query', msg => {
         case 'c_wedding':
         case 'b_love':
         case 'c_love':
-          bot.answerCallbackQuery({callback_query_id: msg.id})
+          let queryReason = msg.data.substr(0,1) === 'b' ? 'bouquets' : 'compose'
+          user.pagesReason[queryReason] = 1;
+          user.save()
+            .then(() => bot.answerCallbackQuery({callback_query_id: msg.id}))
             .then(() => QueryController.findByReason(user, msg.data))
           break;
 
