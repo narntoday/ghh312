@@ -40,17 +40,17 @@ module.exports = {
         params = {}
 
     if (action === 'reset') {
-      console.log(cb_data.slice(13))
+      console.log(cb_data.slice(12))
       user.pagesReason[query] = 1
       user.save()
-        .then(() => queryController.findByReason(user, cb_data.slice(13)))
+        .then(() => queryController.findByReason(user, cb_data.slice(12)))
         .catch((err) => console.log(err))
     } else {
       params[query] = action === 'add' ? (pageNumber + 1) : (pageNumber - 1)
-      console.log(cb_data.slice(12))
+      console.log(cb_data.slice(11))
       user.pagesReason.set(params)
       user.save()
-        .then(() => queryController.findByReason(user, query, cb_data.slice(12)))
+        .then(() => queryController.findByReason(user, query, cb_data.slice(11)))
         .catch((err) => console.log(err))
     }
   }
