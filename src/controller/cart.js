@@ -68,7 +68,7 @@ module.exports = {
             })
           })).then(() => {
             const price = this.getTotalPrice(user)
-            return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${price} ${rub}</b>`, {
+            return bot.sendMessage(user.userId, `Общая сумма Вашего заказа составляет <b>${typeof(price) === 'number' ? price : price.total} ${rub}</b>`, {
               parse_mode: 'HTML',
               reply_markup: {
                 inline_keyboard: [
