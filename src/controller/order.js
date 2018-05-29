@@ -69,6 +69,7 @@ module.exports = {
       const order = await Form.findOne({id: id})
       const orderDetails = user.cart.slice(1).map(item => `<em>${item.title}</em>`).join('\n')
       const totalPrice = CartController.getTotalPrice(user)
+      console.log(typeof(totalPrice))
       const userDetails = `<b>Имя:</b> ${order.name}\n<b>Адрес доставки:</b> ${order.address}\n<b>Телефон:</b> ${order.phone}`
       bot.sendMessage(447069712, `<b>Новый заказ!</b>\n\n${orderDetails}<em>\nСумма заказа ${typeof(totalPrice) === 'number' ? totalPrice : totalPrice.total} ${rub}</em>\n\n${userDetails}`, {parse_mode: 'HTML'})
         .then(() => bot.sendMessage(user.userId, 'Спасибо за заказ! В ближайшее время с Вами свяжется наш менеджер.'))
