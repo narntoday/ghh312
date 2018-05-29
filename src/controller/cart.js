@@ -93,7 +93,7 @@ module.exports = {
     prices.map(el => el.total = el.price * el.quantity)
 
     const reduce = prices.reduce((a, b) => a.total + b.total)
-    console.log(reduce)
+    console.log(typeof(reduce))
     // return prices.reduce((a, b) => a.total + b.total)
   },
   clearCart (user) {
