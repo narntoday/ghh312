@@ -77,7 +77,7 @@ module.exports = {
                 ]
               }
             })
-          }).catch(err => console.log(err))
+          })
         }).catch(err => console.log(err))
     } else {
       return bot.sendMessage(user.userId, `Корзина пуста`)
@@ -91,7 +91,6 @@ module.exports = {
       }
     })
     prices.map(el => el.total = el.price * el.quantity)
-    console.log(prices.reduce((a, b) => a.total + b.total))
     return prices.reduce((a, b) => a.total + b.total)
   },
   clearCart (user) {
