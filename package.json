@@ -8,10 +8,10 @@
     "dev": "nodemon ./src/index.js",
     "set_env": "export $(cat .env | xargs)"
   },
-  "author": "Egor Kravchenko",
+  "author": "NarnToday",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kravchenkoegor/flower-shop-telegram-bot.git"
+    "url": ""
   },
   "license": "ISC",
   "dependencies": {
